@@ -87,8 +87,7 @@ public class TransmissionController {
         aliParam.setUrl(URL);
         aliParam.setVersion("2.0");
         log.info("【TransmissionController.pushTransmission】==aliParam.getUrl:{}", aliParam.getUrl());
-        log.info("【TransmissionController.pushTransmission】==aliParam.getRequestSuffix:{}",
-        aliParam.getRequestSuffix());
+        log.info("【TransmissionController.pushTransmission】==aliParam.getRequestSuffix:{}", aliParam.getRequestSuffix());
         String resultStr = new RequestUtil().doPost(aliParam.getUrl() + "?" + aliParam.getRequestSuffix(), mapData);
         ResultEntity resultEntity = JSON.parseObject(resultStr, ResultEntity.class);
         log.info("【TransmissionController.pushTransmission】===resultEntity=:{}",resultEntity);
