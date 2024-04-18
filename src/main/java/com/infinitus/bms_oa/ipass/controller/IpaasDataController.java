@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.security.NoSuchAlgorithmException;
 
+@Slf4j
 @Controller
 @RequestMapping("getIpaasData")
-@Slf4j
 public class IpaasDataController {
     @Value("${SomeSecret.IpassController.ipaas_url_dev}")
     private String ipaas_url_dev;
@@ -66,7 +66,6 @@ public class IpaasDataController {
         return "success";
     }
 
-
     /**
      * 物料主数据的对应关系
     * */
@@ -89,6 +88,5 @@ public class IpaasDataController {
                 "/getLmtJdBsTraceInfo?doNo=" + id);
         return o;
     }
-
 
 }
