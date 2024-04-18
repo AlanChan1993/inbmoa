@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--上面2行的是约束依赖，固定照抄就好-->
+<!--下面的才是要自己编写的地方-->
+<!--写mapper的配置文件第一步就是要写<mapper></mapper>标签-->
+<!--<mapper></mapper>标签里包含着各个CURD操作的SQL语句-->
+<mapper namespace="com.infinitus.bms_oa.wms_pos.mapper.WmsPosConfirOutboundMapper">
+    <!--定义一个名为BaseResultMap的返回类型-->
+    <resultMap id="BaseResultMap" type="com.infinitus.bms_oa.wms_pos.pojo.WmsPosConfirOutbound">
+        <result column="DEAL_DATE" property="dealDate" jdbcType="VARCHAR"></result>
+        <result column="TRO_CODE" property="troCode" jdbcType="VARCHAR"></result>
+        <result column="SEND_CODE" property="sendCode" jdbcType="VARCHAR"></result>
+        <result column="INVENTORY" property="inventory" jdbcType="VARCHAR"></result>
+        <result column="SEND_TYPE" property="sendType" jdbcType="VARCHAR"></result>
+        <result column="WPCO_MEMBER" property="member" jdbcType="VARCHAR"></result>
+        <result column="ORDER_NOTE" property="orderNote" jdbcType="VARCHAR"></result>
+        <result column="CONTACTS" property="contacts" jdbcType="VARCHAR"></result>
+        <result column="ADDRESS" property="adress" jdbcType="VARCHAR"></result>
+        <result column="COMMODITY_NUMBER" property="commodityNumber" jdbcType="VARCHAR"></result>
+        <result column="COMMODITY_NAME" property="commodityName" jdbcType="VARCHAR"></result>
+        <result column="QUANTITY" property="quantity" jdbcType="VARCHAR"></result>
+        <result column="BATCH" property="batch" jdbcType="VARCHAR"></result>
+        <result column="DUE_DATE" property="dealDate" jdbcType="VARCHAR"></result>
+    </resultMap>
+    <!--插入语句-->
+    <!--id要与UserMapper文件中表示插入的函数名一致，parameterType表示函数的输入参数的类型-->
+    <insert id="createWmsPosConfirOutbound" parameterType="com.infinitus.bms_oa.wms_pos.pojo.WmsPosConfirOutbound">
+
+    </insert>
+
+    <!--查找语句-->
+    <!--resultMap表示函数返回的类型-->
+    <select id="getRFIDInfoBytid" parameterType="java.lang.String" resultMap="BaseResultMap">
+       SELECT * FROM WMS_POS_CONFIR_OUTBOUND WHERE TRO_CODE = #{troCode,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="createWmsPosConfirOutboundS"  parameterType="java.util.List">
+        INSERT ALL
+        <foreach item="list" index="index" collection="list">
+            INTO WMS_POS_CONFIR_OUTBOUND (DEAL_DATE,TRO_CODE,SEND_CODE,INVENTORY,SEND_TYPE,WPCO_MEMBER,ORDER_NOTE,CONTACTS,MOBILE,ADDRESS,
+            COMMODITY_NUMBER,COMMODITY_NAME,QUANTITY,BATCH,DUEDATE) VALUES
+            (#{list.dealDate,jdbcType=VARCHAR},#{list.troCode,jdbcType=VARCHAR},#{list.sendCode,jdbcType=VARCHAR}
+            ,#{list.inventory,jdbcType=VARCHAR} ,#{list.sendType,jdbcType=VARCHAR},#{list.member,jdbcType=VARCHAR}
+            ,#{list.orderNote,jdbcType=VARCHAR},#{list.contacts,jdbcType=VARCHAR},#{list.mobile,jdbcType=VARCHAR}
+            ,#{list.adress,jdbcType=VARCHAR},#{list.commodityNumber,jdbcType=VARCHAR},#{list.commodityName,jdbcType=VARCHAR}
+            ,#{list.quantity,jdbcType=VARCHAR},#{list.batch,jdbcType=VARCHAR},#{list.dueDate,jdbcType=VARCHAR})
+        </foreach>
+        SELECT 1 FROM DUAL
+    </insert>
+
+</mapper>

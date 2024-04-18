@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--上面2行的是约束依赖，固定照抄就好-->
+<!--下面的才是要自己编写的地方-->
+<!--写mapper的配置文件第一步就是要写<mapper></mapper>标签-->
+<!--<mapper></mapper>标签里包含着各个CURD操作的SQL语句-->
+<mapper namespace="com.infinitus.bms_oa.oms.mapper.SignItemMapper">
+    <!--定义一个名为BaseResultMap的返回类型-->
+    <resultMap id="BaseResultMap" type="com.infinitus.bms_oa.oms.pojo.SignItem">
+        <result column="order_no" property="orderCode" jdbcType="VARCHAR"></result>
+        <result column="arrive_dt" property="signTime" jdbcType="TIMESTAMP"></result>
+    </resultMap>
+
+    <!--查找语句-->
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT * FROM BMS_ORDER_SIGN WHERE  STATUS='0' OR STATUS=''
+    </select>
+
+    <!--修改语句-->
+    <update id="updateStatus" parameterType="com.infinitus.bms_oa.oms.pojo.SignItem">
+        UPDATE BMS_ORDER_SIGN SET STATUS=#{status,jdbcType=VARCHAR},MESSAGE=#{message,jdbcType=VARCHAR} WHERE ORDER_NO=#{orderCode,jdbcType=INTEGER}
+    </update>
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--上面2行的是约束依赖，固定照抄就好-->
+<!--下面的才是要自己编写的地方-->
+<!--写mapper的配置文件第一步就是要写<mapper></mapper>标签-->
+<!--<mapper></mapper>标签里包含着各个CURD操作的SQL语句-->
+<mapper namespace="com.infinitus.bms_oa.wms_ws.mapper.ImaWmsOrdersDetailMapper">
+    <!--定义一个名为BaseResultMap的返回类型-->
+    <resultMap id="BaseResultMap" type="com.infinitus.bms_oa.wms_ws.pojo.ImaWmsOrdersDetail">
+        <id column="DETAIL_ID" property="DETAIL_ID" jdbcType="INTEGER"></id>
+        <id column="ITEM_NUMBER" property="ITEM_NUMBER" jdbcType="VARCHAR"></id>
+        <id column="ITEM_SAPNUMBER" property="ITEM_SAPNUMBER" jdbcType="VARCHAR"></id>
+        <id column="ITEM_PRODUCTCODE" property="ITEM_PRODUCTCODE" jdbcType="VARCHAR"></id>
+        <id column="ITEM_PRODUCTNAME" property="ITEM_PRODUCTNAME" jdbcType="VARCHAR"></id>
+        <id column="ITEM_UNIT" property="ITEM_UNIT" jdbcType="VARCHAR"></id>
+        <id column="ITEM_MAINPRICE" property="ITEM_MAINPRICE" jdbcType="VARCHAR"></id>
+        <id column="ITEM_QUANTITY" property="ITEM_QUANTITY" jdbcType="INTEGER"></id>
+        <id column="ITEM_BATCH" property="ITEM_BATCH" jdbcType="VARCHAR"></id>
+        <id column="ITEM_CLASS" property="ITEM_CLASS" jdbcType="VARCHAR"></id>
+        <id column="STATUS" property="STATUS" jdbcType="VARCHAR"></id>
+        <id column="MJAHR" property="MJAHR" jdbcType="VARCHAR"></id>
+    </resultMap>
+
+
+    <!--查找语句-->
+    <select id="getImaWmsOrdersDetails" resultMap="BaseResultMap">
+        SELECT A.DETAIL_ID,A.ITEM_NUMBER,A.ITEM_SAPNUMBER,A.ITEM_PRODUCTCODE,A.ITEM_PRODUCTNAME,A.ITEM_UNIT,
+        A.ITEM_MAINPRICE,A.ITEM_QUANTITY, A.ITEM_BATCH,A.STATUS,A.ITEM_CLASS,B.MJAHR
+        FROM IMA_WMS_ORDERS_DETAIL  A ,SAP2WMS_DEPT_OUTCOME B
+        WHERE A.ITEM_SAPNUMBER =B.RSNUM AND  A.ITEM_NUMBER=#{itemNumber,jdbcType=VARCHAR}
+    </select>
+
+    <!--修改语句-->
+    <!--修改语句-->
+    <update id="updateStatus" parameterType="com.infinitus.bms_oa.wms_ws.pojo.ImaWmsOrdersDetail">
+        UPDATE IMA_WMS_ORDERS_DETAIL SET STATUS=#{status,jdbcType=VARCHAR} WHERE ORDER_ID=#{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

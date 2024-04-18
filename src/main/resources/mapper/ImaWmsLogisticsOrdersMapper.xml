@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--上面2行的是约束依赖，固定照抄就好-->
+<!--下面的才是要自己编写的地方-->
+<!--写mapper的配置文件第一步就是要写<mapper></mapper>标签-->
+<!--<mapper></mapper>标签里包含着各个CURD操作的SQL语句-->
+<mapper namespace="com.infinitus.bms_oa.wms_ws.mapper.ImaWmsLogisticsOrdersMapper">
+    <!--定义一个名为BaseResultMap的返回类型-->
+    <resultMap id="BaseResultMap" type="com.infinitus.bms_oa.wms_ws.pojo.ImaWmsLogisticsOrders">
+        <id column="ORDER_ID" property="ORDER_ID" jdbcType="INTEGER"></id>
+        <id column="ITEM_NUMBER" property="ITEM_NUMBER" jdbcType="VARCHAR"></id>
+        <id column="ITEM_APPLYPERSON" property="ITEM_APPLYPERSON" jdbcType="VARCHAR"></id>
+        <id column="ITEM_APPLYDEPT" property="ITEM_APPLYDEPT" jdbcType="VARCHAR"></id>
+        <id column="ITEM_APPLYPERSON_NAME" property="ITEM_APPLYPERSON_NAME" jdbcType="VARCHAR"></id>
+        <id column="ITEM_APPLICATIONNAME" property="ITEM_APPLICATIONNAME" jdbcType="VARCHAR"></id>
+        <id column="ITEM_CONSIGNEEUSER" property="ITEM_CONSIGNEEUSER" jdbcType="VARCHAR"></id>
+        <id column="ITEM_CONSIGNEEUSER_NAME" property="ITEM_CONSIGNEEUSER_NAME" jdbcType="VARCHAR"></id>
+        <id column="ITEM_SAPNUMBER" property="ITEM_SAPNUMBER" jdbcType="VARCHAR"></id>
+        <id column="ITEM_PROJECT" property="ITEM_PROJECT" jdbcType="VARCHAR"></id>
+        <id column="ITEM_COMPANYCF" property="ITEM_COMPANYCF" jdbcType="VARCHAR"></id>
+        <id column="ITEM_MOVETYPE" property="ITEM_MOVETYPE" jdbcType="VARCHAR"></id>
+        <id column="ITEM_APPLYDATE" property="ITEM_APPLYDATE" jdbcType="VARCHAR"></id>
+        <id column="ITEM_ISCOMPENSATE" property="ITEM_ISCOMPENSATE" jdbcType="VARCHAR"></id>
+        <id column="SYN_DATE" property="SYN_DATE" jdbcType="TIMESTAMP"></id>
+
+        <id column="BWART" property="BWART" jdbcType="VARCHAR"></id>
+        <id column="MJAHR" property="MJAHR" jdbcType="VARCHAR"></id>
+        <id column="KOSTL" property="KOSTL" jdbcType="VARCHAR"></id>
+
+
+    </resultMap>
+
+    <!--查找语句-->
+    <select id="getImaWmsLogisticsOrdersList" resultMap="BaseResultMap">
+        SELECT ORDER_ID,ITEM_NUMBER,ITEM_APPLYPERSON,ITEM_APPLYDEPT,ITEM_APPLYPERSON_NAME,ITEM_APPLICATIONNAME,
+        ITEM_CONSIGNEEUSER ,ITEM_CONSIGNEEUSER_NAME ,ITEM_SAPNUMBER,ITEM_PROJECT,ITEM_COMPANYCF,ITEM_MOVETYPE,
+        ITEM_ISCOMPENSATE,ITEM_APPLYDATE,B.BWART,B.MJAHR,B.KOSTL
+        FROM IMA_WMS_LOGISTICS_ORDERS A ,SAP2WMS_DEPT_OUTCOME B
+        WHERE A.ITEM_SAPNUMBER =B.RSNUM AND  (A.STATUS='0' OR A.STATUS='') AND (A.SYN_DATE IS NULL OR A.SYN_DATE='' )
+    </select>
+
+    <!--修改语句-->
+    <update id="updateStatus" parameterType="com.infinitus.bms_oa.wms_ws.pojo.ImaWmsLogisticsOrders">
+        UPDATE IMA_WMS_LOGISTICS_ORDERS SET STATUS=#{status,jdbcType=VARCHAR} WHERE ORDER_ID=#{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>

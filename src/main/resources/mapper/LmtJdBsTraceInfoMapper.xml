@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--上面2行的是约束依赖-->
+<!--写mapper的配置文件第一步就是要写<mapper></mapper>标签-->
+<!--<mapper></mapper>标签里包含着各个CURD操作的SQL语句-->
+<mapper namespace="com.infinitus.bms_oa.oms.mapper.LmtJdBsTraceInfoMapper">
+    <!--定义一个名为BaseResultMap的返回类型-->
+    <resultMap id="BaseResultMap" type="com.infinitus.bms_oa.oms.pojo.LmtJdBsTraceInfo">
+        <result column="DO_NO" property="DO_NO" jdbcType="VARCHAR"></result>
+        <result column="OPE_TITLE" property="OPE_TITLE" jdbcType="VARCHAR"></result>
+        <result column="OPE_REMARK" property="OPE_REMARK" jdbcType="VARCHAR"></result>
+        <result column="OPE_NAME" property="OPE_NAME" jdbcType="VARCHAR"></result>
+        <result column="WAYBILL_CODE" property="WAYBILL_CODE" jdbcType="VARCHAR"></result>
+        <result column="STATUS" property="STATUS" jdbcType="VARCHAR"></result>
+        <result column="OPE_TIME" property="OPE_TIME" jdbcType="TIMESTAMP"></result>
+    </resultMap>
+
+    <!--查找语句-->
+    <select id="getTransmission" resultMap="BaseResultMap">
+        SELECT A.DO_NO, A.OPE_TITLE , A.OPE_TIME , A.OPE_REMARK , A.OPE_NAME , A.WAYBILL_CODE , A.STATUS
+         FROM LMT.LMT_JD_BS_TRACE_INFO A WHERE A.DO_NO=#{doNo,jdbcType=VARCHAR} ORDER BY A.OPE_TIME
+    </select>
+
+</mapper>

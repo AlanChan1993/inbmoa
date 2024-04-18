@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--上面2行的是约束依赖，固定照抄就好-->
+<!--下面的才是要自己编写的地方-->
+<!--写mapper的配置文件第一步就是要写<mapper></mapper>标签-->
+<!--<mapper></mapper>标签里包含着各个CURD操作的SQL语句-->
+<mapper namespace="com.infinitus.bms_oa.oms.mapper.OMSBMSReturnOrderInfoMapper">
+    <!--定义一个名为BaseResultMap的返回类型-->
+    <resultMap id="BaseResultMap" type="com.infinitus.bms_oa.oms.pojo.OMSBMSReturnOrderInfo">
+
+        <id column="RETURN_ORDER_CODE" property="returnOrderCode" jdbcType="VARCHAR"></id>
+        <id column="WAY_BILL_CODE" property="waybillCode" jdbcType="VARCHAR"></id>
+        <id column="PORDER_CODE" property="pOrderCode" jdbcType="VARCHAR"></id>
+        <id column="UPDATE_TIME" property="updateTime" jdbcType="VARCHAR"></id>
+        <id column="IS_DELETE" property="isDeleted" jdbcType="INTEGER"></id>
+    </resultMap>
+
+    <!--插入语句-->
+    <!--id要与OMSBMSReturnOrderInfo文件中表示插入的函数名一致，parameterType表示函数的输入参数的类型-->
+    <insert id="createOMSBMSReturnOrderInfoList"  parameterType="java.util.List">
+        INSERT INTO OMS_BMS_RETURNORDER_INFO (RETURN_ORDER_CODE,WAY_BILL_CODE,PORDER_CODE,UPDATE_TIME,IS_DELETE)
+        VALUES
+        <foreach collection ="list" item="list" separator =",">
+            (#{list.returnOrderCode,jdbcType=VARCHAR},#{list.waybillCode,jdbcType=VARCHAR},#{list.pOrderCode,jdbcType=VARCHAR},#{list.updateTime,jdbcType=VARCHAR},#{list.isDelete,jdbcType=INTEGER})
+        </foreach>
+    </insert>
+
+    <!--插入语句-->
+    <!--id要与OMSBMSReturnOrderInfo文件中表示插入的函数名一致，parameterType表示函数的输入参数的类型-->
+    <insert id="createOMSBMSReturnOrderInfoList2"  parameterType="java.util.List">
+        INSERT ALL
+        <foreach item="list" index="index" collection="list">
+           INTO OMS_BMS_RETURNORDER_INFO (RETURN_ORDER_CODE,WAY_BILL_CODE,PORDER_CODE,UPDATE_TIME,IS_DELETE) VALUES
+          (#{list.returnOrderCode,jdbcType=VARCHAR},#{list.waybillCode,jdbcType=VARCHAR},#{list.pOrderCode,jdbcType=VARCHAR}
+          ,#{list.updateTime,jdbcType=VARCHAR},#{list.isDelete,jdbcType=INTEGER})
+        </foreach>
+        SELECT 1 FROM DUAL
+    </insert>
+
+
+
+</mapper>

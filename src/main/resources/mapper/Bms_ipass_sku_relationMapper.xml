@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--上面2行的是约束依赖，固定照抄就好-->
+<!--下面的才是要自己编写的地方-->
+<!--写mapper的配置文件第一步就是要写<mapper></mapper>标签-->
+<!--<mapper></mapper>标签里包含着各个CURD操作的SQL语句-->
+<mapper namespace="com.infinitus.bms_oa.ipass.mapper.Bms_ipass_sku_relationMapper">
+    <!--定义一个名为BaseResultMap的返回类型-->
+    <resultMap id="BaseResultMap" type="com.infinitus.bms_oa.ipass.pojo.Bms_ipass_sku_relation">
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <result column="productno" property="productno" jdbcType="VARCHAR"></result>
+        <result column="marketcode" property="marketcode" jdbcType="VARCHAR"></result>
+        <result column="maktx" property="maktx" jdbcType="VARCHAR"></result>
+        <result column="prdflag" property="prdflag" jdbcType="VARCHAR"></result>
+        <result column="sku_usage" property="sku_usage" jdbcType="VARCHAR"></result>
+        <result column="matnr" property="matnr" jdbcType="VARCHAR"></result>
+        <result column="meins" property="meins" jdbcType="VARCHAR"></result>
+        <result column="brgew" property="brgew" jdbcType="DOUBLE"></result>
+        <result column="gewei" property="gewei" jdbcType="VARCHAR"></result>
+        <result column="volum" property="volum" jdbcType="DOUBLE"></result>
+        <result column="voleh" property="voleh" jdbcType="VARCHAR"></result>
+        <result column="groes" property="groes" jdbcType="VARCHAR"></result>
+        <result column="bismt" property="bismt" jdbcType="VARCHAR"></result>
+        <result column="umrez" property="umrez" jdbcType="INTEGER"></result>
+        <result column="mhdrz" property="mhdrz" jdbcType="INTEGER"></result>
+        <result column="mhdhb" property="mhdhb" jdbcType="INTEGER"></result>
+        <result column="iprkz" property="iprkz" jdbcType="VARCHAR"></result>
+        <result column="kzumw" property="kzumw" jdbcType="VARCHAR"></result>
+        <result column="zprdcode" property="zprdcode" jdbcType="VARCHAR"></result>
+        <result column="ersda" property="ersda" jdbcType="VARCHAR"></result>
+    </resultMap>
+    <!--插入语句-->
+    <!--id要与UserMapper文件中表示插入的函数名一致，parameterType表示函数的输入参数的类型-->
+    <insert id="createBms_ipass_sku_relation" parameterType="com.infinitus.bms_oa.ipass.pojo.Bms_ipass_sku_relation">
+      INSERT INTO  BMS_IPASS_SKU_RELATION(PRODUCTNO,MARKETCODE,MAKTX,PRDFLAG,SKU_USAGE,MATNR,MEINS,BRGEW
+        ,GEWEI,VOLUM,VOLEH, GROES,BISMT,UMREZ,MHDRZ,MHDHB,IPRKZ,KZUMW,ZPRDCODE,ERSDA)
+        VALUES(#{productno,jdbcType=VARCHAR},#{marketcode,jdbcType=VARCHAR},#{maktx,jdbcType=VARCHAR},
+        #{prdflag,jdbcType=VARCHAR},#{sku_usage,jdbcType=VARCHAR},#{matnr,jdbcType=VARCHAR},#{meins,jdbcType=VARCHAR}
+        ,#{brgew,jdbcType=DOUBLE},#{gewei,jdbcType=VARCHAR},#{volum,jdbcType=DOUBLE},#{voleh,jdbcType=VARCHAR}
+        ,#{groes,jdbcType=VARCHAR},#{bismt,jdbcType=VARCHAR},#{umrez,jdbcType=INTEGER},#{mhdrz,jdbcType=INTEGER}
+        ,#{mhdhb,jdbcType=INTEGER},#{iprkz,jdbcType=VARCHAR},#{kzumw,jdbcType=VARCHAR},#{zprdcode,jdbcType=VARCHAR}
+        ,#{ersda,jdbcType=VARCHAR})/*SQL语句*/
+     </insert>
+
+    <!--查找语句-->
+    <!--resultMap表示函数返回的类型-->
+    <select id="getBms_ipass_sku_relationBySku" parameterType="java.lang.String" resultMap="BaseResultMap">
+       SELECT * FROM BMS_IPASS_SKU_RELATION WHERE PRODUCTNO = #{productno,jdbcType=VARCHAR}
+    </select>
+
+
+</mapper>

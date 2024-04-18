@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--上面2行的是约束依赖，固定照抄就好-->
+<!--下面的才是要自己编写的地方-->
+<!--写mapper的配置文件第一步就是要写<mapper></mapper>标签-->
+<!--<mapper></mapper>标签里包含着各个CURD操作的SQL语句-->
+<mapper namespace="com.infinitus.bms_oa.rfid.mapper.RFIDInfoMapper">
+    <!--定义一个名为BaseResultMap的返回类型-->
+    <resultMap id="BaseResultMap" type="com.infinitus.bms_oa.rfid.pojo.RFIDInfo">
+        <result column="epc" property="epc" jdbcType="VARCHAR"></result>
+        <result column="tid" property="tid" jdbcType="VARCHAR"></result>
+        <result column="vendor_Code" property="vendorCode" jdbcType="VARCHAR"></result>
+        <result column="sku" property="sku" jdbcType="VARCHAR"></result>
+        <result column="create_Date" property="createDate" jdbcType="TIMESTAMP"></result>
+    </resultMap>
+    <!--插入语句-->
+    <!--id要与UserMapper文件中表示插入的函数名一致，parameterType表示函数的输入参数的类型-->
+    <insert id="createRFIDInfo" parameterType="com.infinitus.bms_oa.rfid.pojo.RFIDInfo">
+      INSERT INTO T_RFID_INFO(epc,tid,vendor_Code,sku,create_Date)
+       VALUES (#{epc,jdbcType=VARCHAR},#{tid,jdbcType=VARCHAR},#{vendor_Code,jdbcType=VARCHAR},#{sku,jdbcType=VARCHAR}
+      ,#{create_Date,jdbcType=TIMESTAMP})
+    </insert>
+
+    <!--查找语句-->
+    <!--resultMap表示函数返回的类型-->
+    <select id="getRFIDInfoBytid" parameterType="java.lang.String" resultMap="BaseResultMap">
+       SELECT * FROM T_RFID_INFO WHERE TID = #{tid,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insertRFIDInfos"  parameterType="java.util.List">
+        INSERT INTO T_RFID_INFO (epc,tid,vendor_Code,sku,create_Date) VALUES
+        <foreach collection ="list" item="list" separator =",">
+            (#{list.epc,jdbcType=VARCHAR},#{list.tid,jdbcType=VARCHAR},#{list.vendorCode,jdbcType=VARCHAR}
+            ,#{list.sku,jdbcType=VARCHAR} ,#{list.createDate,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+
+</mapper>

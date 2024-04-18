@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--上面2行的是约束依赖，固定照抄就好-->
+<!--下面的才是要自己编写的地方-->
+<!--写mapper的配置文件第一步就是要写<mapper></mapper>标签-->
+<!--<mapper></mapper>标签里包含着各个CURD操作的SQL语句-->
+<mapper namespace="com.infinitus.bms_oa.oms.mapper.WmsConventionMapper">
+    <!--定义一个名为BaseResultMap的返回类型-->
+    <resultMap id="BaseResultMap" type="com.infinitus.bms_oa.oms.pojo.WmsConvention">
+        <id column="wms_conventionId" property="wmsConventionId" jdbcType="INTEGER"></id>
+        <id column="addressCode" property="addressCode" jdbcType="VARCHAR"></id>
+        <id column="province" property="province" jdbcType="VARCHAR"></id>
+        <id column="city" property="city" jdbcType="VARCHAR"></id>
+        <id column="district" property="district" jdbcType="VARCHAR"></id>
+        <id column="storeWarehouseCode" property="storeWarehouseCode" jdbcType="VARCHAR"></id>
+        <id column="storeWarehouse" property="storeWarehouse" jdbcType="VARCHAR"></id>
+        <id column="homeWarehouseCode" property="homeWarehouseCode" jdbcType="VARCHAR"></id>
+        <id column="homeWarehouse" property="homeWarehouse" jdbcType="VARCHAR"></id>
+        <id column="gmtModified" property="gmtModified" jdbcType="VARCHAR"></id>
+        <id column="isDeleted" property="isDeleted" jdbcType="VARCHAR"></id>
+    </resultMap>
+
+
+    <!--插入语句-->
+    <!--id要与WmsConvention文件中表示插入的函数名一致，parameterType表示函数的输入参数的类型-->
+    <insert id="createWmsConvention" parameterType="com.infinitus.bms_oa.oms.pojo.WmsConvention">
+        INSERT  INTO WMS_CONVENTION (WMS_CONVENTIONID,ADDRESSCODE,PROVINCE,CITY,DISTRICT,STOREWAREHOUSECODE,STOREWAREHOUSE, HOMEWAREHOUSECODE,HOMEWAREHOUSE,GMTMODIFIED,ISDELETED)
+        VALUES (#{wmsConventionId,jdbcType=INTEGER},#{addressCode,jdbcType=VARCHAR},#{province,jdbcType=VARCHAR} ,#{city,jdbcType=VARCHAR} ,#{district,jdbcType=VARCHAR}
+        ,#{storeWarehouseCode,jdbcType=VARCHAR} ,#{storeWarehouse,jdbcType=VARCHAR} ,#{homeWarehouseCode,jdbcType=VARCHAR} ,#{homeWarehouse,jdbcType=VARCHAR} ,#{gmtModified,jdbcType=VARCHAR} ,#{isDeleted,jdbcType=VARCHAR})
+    </insert>
+
+    <!--插入语句-->
+    <!--id要与WmsConvention文件中表示插入的函数名一致，parameterType表示函数的输入参数的类型-->
+    <insert id="createWmsConventionList"  parameterType="java.util.List">
+        INSERT ALL
+        <foreach item="list" index="index" collection="list">
+        INTO WMS_CONVENTION
+        (WMS_CONVENTIONID,ADDRESSCODE,PROVINCE,CITY,DISTRICT,STOREWAREHOUSECODE,STOREWAREHOUSE, HOMEWAREHOUSECODE,HOMEWAREHOUSE,GMTMODIFIED,ISDELETED)
+        VALUES (#{list.wmsConventionId,jdbcType=INTEGER},#{list.addressCode,jdbcType=VARCHAR},#{list.province,jdbcType=VARCHAR}
+        ,#{list.city,jdbcType=VARCHAR} ,#{list.district,jdbcType=VARCHAR} ,#{list.storeWarehouseCode,jdbcType=VARCHAR}
+        ,#{list.storeWarehouse,jdbcType=VARCHAR} ,#{list.homeWarehouseCode,jdbcType=VARCHAR} ,#{list.homeWarehouse,jdbcType=VARCHAR}
+        ,#{list.gmtModified,jdbcType=VARCHAR} ,
+            <if test="list.isDeleted==1">
+            '已删除'
+            </if>
+            <if test="list.isDeleted==0">'未删除'</if>
+        )
+        </foreach>
+        SELECT 1 FROM DUAL
+    </insert>
+</mapper>

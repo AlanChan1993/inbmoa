@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--上面2行的是约束依赖，固定照抄就好-->
+<!--下面的才是要自己编写的地方-->
+<!--写mapper的配置文件第一步就是要写<mapper></mapper>标签-->
+<!--<mapper></mapper>标签里包含着各个CURD操作的SQL语句-->
+<mapper namespace="com.infinitus.bms_oa.oms.mapper.Bms_Wms_Order_ExpressMapper">
+    <!--定义一个名为BaseResultMap的返回类型-->
+    <resultMap id="BaseResultMap" type="com.infinitus.bms_oa.oms.pojo.Bms_Wms_Order_Express">
+        <id column="ID" property="ID" jdbcType="INTEGER"></id>
+        <id column="EXPRESSCODE" property="expressCode" jdbcType="VARCHAR"></id>
+        <id column="SHIPMENTNO" property="shipmentNo" jdbcType="VARCHAR"></id>
+        <id column="EXPRESSCOMPANYCODE" property="expressCompanyCode" jdbcType="VARCHAR"></id>
+        <id column="STATUS" property="status" jdbcType="VARCHAR"></id>
+        <id column="INSERT_DATE" property="insert_date" jdbcType="TIMESTAMP"></id>
+        <id column="SYS_DATE" property="sys_date" jdbcType="TIMESTAMP"></id>
+        <id column="MESSAGE" property="message" jdbcType="VARCHAR"></id>
+    </resultMap>
+
+
+    <!--查找语句-->
+    <select id="getBms_Wms_Order_Express" resultMap="BaseResultMap">
+        SELECT ID,EXPRESSCODE,SHIPMENTNO,EXPRESSCOMPANYCODE
+        FROM BMS_WMS_ORDER_EXPRESS B
+        WHERE B.STATUS=#{status,jdbcType=VARCHAR}
+    </select>
+
+
+    <!--修改语句-->
+    <update id="updateSattus" parameterType="com.infinitus.bms_oa.oms.pojo.Bms_Wms_Order_Express">
+        UPDATE BMS_WMS_ORDER_EXPRESS SET STATUS=#{status,jdbcType=VARCHAR} WHERE ID=#{id,jdbcType=INTEGER}
+    </update>
+
+    <!--修改语句-->
+    <update id="update_Order_Express" parameterType="com.infinitus.bms_oa.oms.pojo.Bms_Wms_Order_Express">
+        UPDATE BMS_WMS_ORDER_EXPRESS
+        SET STATUS=#{status,jdbcType=VARCHAR},MESSAGE=#{message,jdbcType=VARCHAR},SYS_DATE=#{sysDate,jdbcType=TIMESTAMP}
+        WHERE ID=#{id,jdbcType=INTEGER}
+    </update>
+
+</mapper>
