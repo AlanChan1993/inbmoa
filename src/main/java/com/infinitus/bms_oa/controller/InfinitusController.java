@@ -65,7 +65,6 @@ public class InfinitusController {
     @PostMapping("/hello")
     public String BmsToOA() {
         //1.设置url，后面改成配置在yml中
-        //String url = "https://oa-test.infinitus-int.com/api/infinitusint/public/workflow/doCreateWorkflowRequest";
         //2.提取数据
         try {
             List<BmsBillAdjust> list = service.selectBillByBillFlag();
