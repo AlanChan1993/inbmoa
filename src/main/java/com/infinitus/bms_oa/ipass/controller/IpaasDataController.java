@@ -78,4 +78,17 @@ public class IpaasDataController {
         return "success";
     }
 
+    /**
+     * 测试轨迹优化ipass接口
+     * ak，sk未授权
+     * */
+    @ResponseBody
+    @RequestMapping("getIpassLmtTrace")
+    public Object gettraceInfo(String id){
+        Object o = IpaasUtils.getRequest(ak, sk, appkey, ipaas_url_dev, "/openapi/RFIDInfo/TransmissionController" +
+                "/getLmtJdBsTraceInfo?doNo=" + id);
+        return o;
+    }
+
+
 }
