@@ -59,7 +59,7 @@ public class LmtTask {
     }
 
     /**
-     * orderSign推送数据规则：status=0 或者 status=''
+     * orderSign签收状态推送数据规则：status=0 或者 status=''
      * 进行推送  30s 执行一次
      * */
     public void putOrderSign(){
@@ -83,8 +83,7 @@ public class LmtTask {
 
                 AliParam aliParam = null;
                 try {
-                    aliParam = new AliParamUtil().pushTransmission(mapData, synDate, secret, customerId,
-                            OrderSignMethod, app_key);
+                    aliParam = new AliParamUtil().pushTransmission(mapData, synDate, secret, customerId, OrderSignMethod, app_key);
                 } catch (IOException ex) {
                     log.info("【IOException】ex=:{}", ex);
                 }
