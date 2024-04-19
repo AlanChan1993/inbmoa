@@ -1,4 +1,4 @@
-package com.infinitus.bms_oa.task;
+package com.infinitus.bms_oa.bms_op.task;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
