@@ -1,6 +1,6 @@
 package com.infinitus.bms_oa.oms.pojo.converter;
 
-import com.infinitus.bms_oa.oms.excetion.BusinessException;
+import com.infinitus.bms_oa.oms.excetion.BMSException;
 import com.infinitus.bms_oa.oms.pojo.LmtJdBsTraceInfo;
 import com.infinitus.bms_oa.oms.pojo.VO.LmtJdBsTraceInfoVO;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ public class LmtJdBsTraceInfoVOConverter {
     public static LmtJdBsTraceInfoVO convert(LmtJdBsTraceInfo lmtInfo) throws Exception {
         if (lmtInfo == null) {
             log.info("【LmtJdBsTraceInfoVOConverter.convert】lmtInfo==null(空)");
-            throw new BusinessException();
+            throw new BMSException();
         }
         LmtJdBsTraceInfoVO lmtJdBsTraceInfoVO = new LmtJdBsTraceInfoVO();
         lmtJdBsTraceInfoVO.setDoNo(lmtInfo.getDO_NO());
@@ -32,7 +32,7 @@ public class LmtJdBsTraceInfoVOConverter {
     public static List<LmtJdBsTraceInfoVO> convertList(List<LmtJdBsTraceInfo> lmtJdBsTraceInfos) {
         if (lmtJdBsTraceInfos == null) {
             log.info("【LmtJdBsTraceInfoVOConverter.convertList】lmtInfo==null(空)");
-            throw new BusinessException();
+            throw new BMSException();
         }
         List<LmtJdBsTraceInfoVO> infoVOList = new ArrayList<>();
         for (LmtJdBsTraceInfo info:lmtJdBsTraceInfos) {

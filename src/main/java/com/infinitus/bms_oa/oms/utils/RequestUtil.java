@@ -1,7 +1,7 @@
 package com.infinitus.bms_oa.oms.utils;
 
 import com.alibaba.fastjson.JSON;
-import com.infinitus.bms_oa.oms.excetion.BusinessException;
+import com.infinitus.bms_oa.oms.excetion.BMSException;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.HttpClient;
@@ -50,11 +50,11 @@ public class RequestUtil {
                 }
             }else{
                 System.out.println("ResponseCode is an error code:" + conn.getResponseCode()+"，消息:"+conn.getResponseMessage());
-                throw new BusinessException("请求错误:代码-"+conn.getResponseCode()+"消息:"+conn.getResponseMessage());
+                throw new BMSException("请求错误:代码-"+conn.getResponseCode()+"消息:"+conn.getResponseMessage());
             }
         }catch (Exception e){
             e.printStackTrace();
-            throw new BusinessException(e.getMessage());
+            throw new BMSException(e.getMessage());
         }finally {
             try{
                 if(out != null){

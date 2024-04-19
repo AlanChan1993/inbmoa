@@ -5,24 +5,24 @@ package com.infinitus.bms_oa.oms.excetion;
  * @author szj 
  * @date 2018年4月28日 下午3:04:17
  */
-public class BusinessException extends RuntimeException {
+public class BMSException extends RuntimeException {
     
-    public BusinessException() {
+    public BMSException() {
         super();
         
     }
     
-    public BusinessException(String message, Throwable cause) {
+    public BMSException(String message, Throwable cause) {
         super(message, cause);
         
     }
     
-    public BusinessException(String message) {
+    public BMSException(String message) {
         super(message);
         
     }
     
-    public BusinessException(Throwable cause) {
+    public BMSException(Throwable cause) {
         super(cause);
         
     }

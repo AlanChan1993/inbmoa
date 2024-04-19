@@ -1,6 +1,6 @@
 package com.infinitus.bms_oa.oms.controller;
 
-import com.infinitus.bms_oa.oms.excetion.BusinessException;
+import com.infinitus.bms_oa.oms.excetion.BMSException;
 import com.infinitus.bms_oa.oms.pojo.AliParam;
 import com.infinitus.bms_oa.oms.pojo.IpassResultEntity;
 import com.infinitus.bms_oa.oms.pojo.OMSBMSReturnOrderInfo;
@@ -118,7 +118,7 @@ public class TransmissionController {
     @GetMapping("getLmtJdBsTraceInfo")
     public IpassResultEntity getLmtJdBsTraceInfo(String doNo){
         if (null == doNo || "".equals(doNo)) {
-            throw new BusinessException();
+            throw new BMSException();
         }
         IpassResultEntity infoVOList = lmtJdBsTraceInfoService.getLmtJdBsTraceInfoVO(doNo);;
         log.info("【TransmissionController.getLmtJdBsTraceInfo】infoVOList=:{}", infoVOList);
