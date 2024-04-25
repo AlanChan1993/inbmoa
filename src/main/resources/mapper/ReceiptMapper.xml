@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--上面2行的是约束依赖，固定照抄就好-->
+<!--下面的才是要自己编写的地方-->
+<!--写mapper的配置文件第一步就是要写<mapper></mapper>标签-->
+<!--<mapper></mapper>标签里包含着各个CURD操作的SQL语句-->
+<mapper namespace="com.infinitus.bms_oa.wms_receipt.mapper.ReceiptMapper">
+    <!--定义一个名为BaseResultMap的返回类型-->
+    <resultMap id="BaseResultMap" type="com.infinitus.bms_oa.wms_receipt.pojo.Receipt">
+
+        <result column="sku" property="sku" jdbcType="VARCHAR"></result>
+        <result column="descr" property="descr" jdbcType="VARCHAR"></result>
+        <result column="externreceiptkey" property="externreceiptkey" jdbcType="VARCHAR"></result>
+        <result column="adddate" property="adddate" jdbcType="TIMESTAMP"></result>
+    </resultMap>
+
+    <!--查找语句-->
+    <!--resultMap表示函数返回的类型-->
+    <select id="getReceipt"  resultMap="BaseResultMap">
+        SELECT A.EXTERNRECEIPTKEY , A.ADDDATE FROM WMWHSE1.RECEIPT  A WHERE A.STATUS &lt; '5'
+     </select>
+
+    <select id="getReceiptDetailVOList"  resultMap="BaseResultMap">
+        SELECT B.SKU ,S.DESCR,A.EXTERNRECEIPTKEY FROM WMWHSE6.RECEIPT  A, WMWHSE6.RECEIPTDETAIL B,WMWHSE6.SKU S  WHERE A.RECEIPTKEY = B.RECEIPTKEY
+        AND B.SKU = S.SKU AND B.STORERKEY = S.STORERKEY  AND A.EXTERNRECEIPTKEY=#{key,jdbcType=VARCHAR}
+     </select>
+
+</mapper>
