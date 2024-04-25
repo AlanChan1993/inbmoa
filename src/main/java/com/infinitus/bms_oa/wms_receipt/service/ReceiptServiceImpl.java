@@ -30,7 +30,6 @@ public class ReceiptServiceImpl implements ReceiptService{
     @Override
     public List<ReceiptDetailVO> getReceiptDetailVOList(String key) {
         if (null != key || !"".equals(key)) {
-            List<ReceiptDetailVO> detailVOS = new ArrayList<>();
             List<Receipt> receipts = mapper.getReceiptDetailVOList(key);
             if (receipts.size() > 0) {
                 return new ReceiptDeatailToDetailVO().convert(receipts);
