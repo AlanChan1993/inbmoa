@@ -21,20 +21,22 @@
      </select>
 
     <select id="getReceiptDetailVOList"  resultMap="BaseResultMap">
-        SELECT B.SKU ,S.DESCR,A.EXTERNRECEIPTKEY FROM WMWHSE6.RECEIPT  A, WMWHSE6.RECEIPTDETAIL B,WMWHSE6.SKU S  WHERE A.RECEIPTKEY = B.RECEIPTKEY
-        AND B.SKU = S.SKU AND B.STORERKEY = S.STORERKEY  AND A.EXTERNRECEIPTKEY=#{key,jdbcType=VARCHAR}
+        SELECT B.SKU ,S.DESCR
+        FROM WMWHSE6.RECEIPT  A, WMWHSE6.RECEIPTDETAIL B,WMWHSE6.SKU S
+        WHERE A.RECEIPTKEY = B.RECEIPTKEY AND B.SKU = S.SKU AND B.STORERKEY = S.STORERKEY
+        AND A.EXTERNRECEIPTKEY=#{key,jdbcType=VARCHAR}
      </select>
 
     <select id="spReceive"  statementType="CALLABLE">
-      {  wmwhse6.SP_RECEIVE_COMMIT(#{externreceiptkey, mode=IN, jdbcType=VARCHAR},
-                                  #{SKU, mode=IN, jdbcType=VARCHAR},
-                                  #{LOT3, mode=IN, jdbcType=VARCHAR},
-                                  #{QTY, mode=IN, jdbcType=VARCHAR},
-                                  #{SAP_AREA_CODE, mode=IN, jdbcType=VARCHAR},
-                                  #{LOC, mode=IN, jdbcType=VARCHAR},
-                                  #{FLAG, mode=OUT, jdbcType=VARCHAR},
-                                  #{V_MSGOUT, mode=OUT, jdbcType=VARCHAR}
-                       )}
+        {wmwhse6.SP_RECEIVE_COMMIT(#{externreceiptkey, mode=IN, jdbcType=VARCHAR},
+                                   #{SKU, mode=IN, jdbcType=VARCHAR},
+                                   #{LOT3, mode=IN, jdbcType=VARCHAR},
+                                   #{QTY, mode=IN, jdbcType=VARCHAR},
+                                   #{SAP_AREA_CODE, mode=IN, jdbcType=VARCHAR},
+                                   #{LOC, mode=IN, jdbcType=VARCHAR},
+                                   #{FLAG, mode=OUT, jdbcType=VARCHAR},
+                                   #{V_MSGOUT, mode=OUT, jdbcType=VARCHAR}
+                                )}
      </select>
 
 </mapper>
