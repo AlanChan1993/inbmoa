@@ -120,7 +120,7 @@ public class TransmissionController {
         if (null == doNo || "".equals(doNo)) {
             throw new BMSException();
         }
-        IpassResultEntity infoVOList = lmtJdBsTraceInfoService.getLmtJdBsTraceInfoVO(doNo);;
+        IpassResultEntity infoVOList = lmtJdBsTraceInfoService.getLmtJdBsTraceInfoVO(doNo);
         log.info("【TransmissionController.getLmtJdBsTraceInfo】infoVOList=:{}", infoVOList);
         return infoVOList;
     }
