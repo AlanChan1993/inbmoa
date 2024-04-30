@@ -17,7 +17,7 @@ public class ReceiptToRecepiptVO {
         return receiptVO;
     }
 
-    public List<ReceiptVO> convertList(List<Receipt> list) {
+    public List<ReceiptVO> convert(List<Receipt> list) {
         return list.stream().map(e -> convert(e)).collect(Collectors.toList());
     }
 

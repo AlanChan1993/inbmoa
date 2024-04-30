@@ -26,7 +26,7 @@ public class ReceiptServiceImpl implements ReceiptService{
         List<Receipt> receiptList = mapper.getReceipt();
         log.info("【ReceiptServiceImpl.getReceipt】receiptList=:{}", receiptList);
         if (receiptList.size() > 0) {
-            return new ReceiptToRecepiptVO().convertList(receiptList);
+            return new ReceiptToRecepiptVO().convert(receiptList);
         }
         return null;
     }
