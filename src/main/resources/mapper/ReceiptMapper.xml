@@ -7,7 +7,6 @@
 <mapper namespace="com.infinitus.bms_oa.wms_receipt.mapper.ReceiptMapper">
     <!--定义一个名为BaseResultMap的返回类型-->
     <resultMap id="BaseResultMap" type="com.infinitus.bms_oa.wms_receipt.pojo.Receipt">
-
         <result column="sku" property="sku" jdbcType="VARCHAR"></result>
         <result column="descr" property="descr" jdbcType="VARCHAR"></result>
         <result column="externreceiptkey" property="externreceiptkey" jdbcType="VARCHAR"></result>
@@ -21,22 +20,22 @@
      </select>
 
     <select id="getReceiptDetailVOList"  resultMap="BaseResultMap">
-        SELECT B.SKU ,S.DESCR
-        FROM WMWHSE6.RECEIPT  A, WMWHSE6.RECEIPTDETAIL B,WMWHSE6.SKU S
+        SELECT B.SKU,S.DESCR FROM WMWHSE6.RECEIPT  A, WMWHSE6.RECEIPTDETAIL B,WMWHSE6.SKU S
         WHERE A.RECEIPTKEY = B.RECEIPTKEY AND B.SKU = S.SKU AND B.STORERKEY = S.STORERKEY
         AND A.EXTERNRECEIPTKEY=#{key,jdbcType=VARCHAR}
-     </select>
+    </select>
 
     <select id="spReceive"  statementType="CALLABLE">
-        {call wmwhse6.SP_RECEIVE_COMMIT(#{externreceiptkey, mode=IN, jdbcType=VARCHAR},
-                                   #{SKU, mode=IN, jdbcType=VARCHAR},
-                                   #{LOT3, mode=IN, jdbcType=VARCHAR},
-                                   #{QTY, mode=IN, jdbcType=VARCHAR},
-                                   #{SAP_AREA_CODE, mode=IN, jdbcType=VARCHAR},
-                                   #{LOC, mode=IN, jdbcType=VARCHAR},
-                                   #{FLAG, mode=OUT, jdbcType=VARCHAR},
-                                   #{V_MSGOUT, mode=OUT, jdbcType=VARCHAR}
-                                )}
-     </select>
+        {call wmwhse6.SP_RECEIVE_COMMIT(
+                       #{externreceiptkey, mode=IN, jdbcType=VARCHAR},
+                       #{SKU, mode=IN, jdbcType=VARCHAR},
+                       #{LOT3, mode=IN, jdbcType=VARCHAR},
+                       #{QTY, mode=IN, jdbcType=VARCHAR},
+                       #{SAP_AREA_CODE, mode=IN, jdbcType=VARCHAR},
+                       #{LOC, mode=IN, jdbcType=VARCHAR},
+                       #{FLAG, mode=OUT, jdbcType=VARCHAR},
+                       #{V_MSGOUT, mode=OUT, jdbcType=VARCHAR}
+                   )}
+    </select>
 
 </mapper>
