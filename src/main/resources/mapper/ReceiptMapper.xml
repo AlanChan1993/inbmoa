@@ -20,7 +20,7 @@
      </select>
 
     <select id="getReceiptDetailVOList"  resultMap="BaseResultMap">
-        SELECT B.SKU,S.DESCR FROM WMWHSE6.RECEIPT  A, WMWHSE6.RECEIPTDETAIL B,WMWHSE6.SKU S
+        SELECT DISTINCT B.SKU,S.DESCR FROM WMWHSE6.RECEIPT  A, WMWHSE6.RECEIPTDETAIL B,WMWHSE6.SKU S
         WHERE A.RECEIPTKEY = B.RECEIPTKEY AND B.SKU = S.SKU AND B.STORERKEY = S.STORERKEY
         AND A.EXTERNRECEIPTKEY=#{key,jdbcType=VARCHAR}
     </select>
@@ -28,13 +28,13 @@
     <select id="spReceive"  statementType="CALLABLE">
         {call wmwhse6.SP_RECEIVE_COMMIT(
                        #{externreceiptkey, mode=IN, jdbcType=VARCHAR},
-                       #{SKU, mode=IN, jdbcType=VARCHAR},
-                       #{LOT3, mode=IN, jdbcType=VARCHAR},
-                       #{QTY, mode=IN, jdbcType=VARCHAR},
-                       #{SAP_AREA_CODE, mode=IN, jdbcType=VARCHAR},
-                       #{LOC, mode=IN, jdbcType=VARCHAR},
-                       #{FLAG, mode=OUT, jdbcType=VARCHAR},
-                       #{V_MSGOUT, mode=OUT, jdbcType=VARCHAR}
+                       #{sku, mode=IN, jdbcType=VARCHAR},
+                       #{lot3, mode=IN, jdbcType=VARCHAR},
+                       #{qty, mode=IN, jdbcType=VARCHAR},
+                       #{sap_area_code, mode=IN, jdbcType=VARCHAR},
+                       #{loc, mode=IN, jdbcType=VARCHAR},
+                       #{flag, mode=OUT, jdbcType=VARCHAR},
+                       #{v_msgout, mode=OUT, jdbcType=VARCHAR}
                    )}
     </select>
 

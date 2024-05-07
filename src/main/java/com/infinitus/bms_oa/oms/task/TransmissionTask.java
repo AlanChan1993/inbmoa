@@ -27,7 +27,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Slf4j
-@Component
+//@Component
 public class TransmissionTask {
 
     @Autowired
@@ -175,6 +175,7 @@ public class TransmissionTask {
                         "&v=2.0&customerId=" + customerId + "&format=json&sign_method=md5&timestamp=" + URLEncoder.encode(synDate, "UTF-8") + "&sign=" + aliParam.getSign();
                 resultStr = new RequestUtil().doPost(url, mapData);
                 //log.info("【TransmissionTask.executeTransmission】resultStr=:{}", resultStr);
+                log.info("--executeTransmission--");
 
                 resultEntity = JSON.parseObject(resultStr, ResultEntity.class);
                 log.info("【【TransmissionTask.executeTransmission】】===resultEntity=:{}", resultEntity);

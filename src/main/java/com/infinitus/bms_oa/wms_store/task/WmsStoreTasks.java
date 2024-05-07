@@ -103,6 +103,7 @@ public class WmsStoreTasks {
      * 批量获取商品中心 skus表
      * */
     public void  getSkus() throws UnsupportedEncodingException {
+        log.info("【WmsStoreTasks.getSkus】",new DateUtil().getNowDate());
         //1、商品中心给出的demo中的加密与打印请求头
         String method = "GET";
         String date = RFC_7231_FORMATTER.format(ZonedDateTime.now(UTC));// 时间
@@ -134,15 +135,21 @@ public class WmsStoreTasks {
             return ;
         }
         //log.info("[getSkus0119]pagePojo=:{}",pagePojo);
-        for (int i = 1; i <= pagePojo.getTotalPages(); i++) {
+        for (int i = 0; i <= pagePojo.getTotalPages(); i++) {
             urlAll = url + listskus + "?nos=&page=" + i + "&size=200";
             String result2 = HttpUtil.httpGet(urlAll, authorization, date);
             JSONObject jsonResult2 = JSONObject.parseObject(result2);
+            Boolean a = false;
+            if (a==jsonResult2.get("success")) {
+                log.info("【WmsStoreTasks.getCommodities】jsonResult2=:{}", jsonResult2);
+                continue;
+            }
             log.info("i=:{}", i);//用于检查循环数
             List<W_STORE_SKUS> skusList2 = (List<W_STORE_SKUS>) jsonResult2.get("skus");
-            if(skusList2!=null) {
+            if (skusList2.size() > 0) {
                 store_skus_service.insertSkusList(skusList2);
                 store_skus_service.insertSkusHistoryList(skusList2);
+                log.info("skusList插入成功=:{}", skusList2);
             }
         }
     }
@@ -151,7 +158,8 @@ public class WmsStoreTasks {
      * 批量获取商品中心Commodities的接口数据
      */
     public void getCommodities() throws UnsupportedEncodingException {
-//1、商品中心给出的demo中的加密与打印请求头
+        log.info("【WmsStoreTasks.getCommodities】",new DateUtil().getNowDate());
+        //1、商品中心给出的demo中的加密与打印请求头
         String method = "GET";
         String date = RFC_7231_FORMATTER.format(ZonedDateTime.now(UTC));// 时间
         // 时间 + 请求类型 + 请求uri 的加密
@@ -165,15 +173,13 @@ public class WmsStoreTasks {
         String urlAll = url + listCommodities+"?nos=&page=1&size=200";
         String result = HttpUtil.httpGet(urlAll, authorization, date);
         JSONObject jsonResult = JSONObject.parseObject(result);
-        log.info("jsonResult=:{}", jsonResult);
+        //log.info("jsonResult=:{}", jsonResult);
 
         //3、将第一页获取的200条数据封装 并批量插入数据
         List<W_STORE_COMMODITIES> commoditiesList = (List<W_STORE_COMMODITIES>) jsonResult.get("commodities");
         //批量插入
         if(commoditiesList!=null){
             commoditiesService.deleteW_STORE_COMMODITIES();//批量更新前先清理掉之前的数据
-            //commoditiesMapper.insertW_STORE_COMMODITIESList(commoditiesList);//此处不需要插入
-            log.info("commoditiesList插入成功=:{}", commoditiesList);
         }
 
         //4、获取总的页数，进行分页获取计算，每次获取后批量插入200条
@@ -181,16 +187,22 @@ public class WmsStoreTasks {
         if (pagePojo == null) {
             return ;
         }
-        for (int i = 1; i <= pagePojo.getTotalPages(); i++) {
+        log.info("【WmsStoreTasks.getCommodities】pagePojo=:{}",pagePojo.getTotalPages());
+        for (int i = 0; i <= pagePojo.getTotalPages(); i++) {
             urlAll = url + listCommodities + "?nos=&page=" + i + "&size=200";
             String result2 = HttpUtil.httpGet(urlAll, authorization, date);
             JSONObject jsonResult2 = JSONObject.parseObject(result2);
+            Boolean a = false;
+            if (a==jsonResult2.get("success")) {
+                log.info("【WmsStoreTasks.getCommodities】jsonResult2=:{}", jsonResult2);
+                continue;
+            }
 
             List<W_STORE_COMMODITIES> commoditiesList2 = (List<W_STORE_COMMODITIES>) jsonResult2.get("commodities");
-            if(commoditiesList2!=null) {
+            if (commoditiesList2.size() > 0) {
                 commoditiesService.insertW_STORE_COMMODITIESList(commoditiesList2);
                 commoditiesService.insertW_STORE_COMMODITIESList_History(commoditiesList2);
-                //log.info("commoditiesList" + i + "插入成功=:{}", commoditiesList2);
+                log.info("commoditiesList" + i + "插入成功=:{}", commoditiesList2);
             }
         }
     }

@@ -365,8 +365,6 @@
                 #{list.certificateNumber , jdbcType=VARCHAR},
             </if>
             TO_CHAR(sysdate , 'yyyy-MM-dd HH24:mm:ss')
-
-
             )
         </foreach>
         SELECT 1 FROM DUAL
@@ -662,9 +660,8 @@
             <if test="list.certificateNumber!=null">
                 #{list.certificateNumber , jdbcType=VARCHAR},
             </if>
+
             TO_CHAR(sysdate , 'yyyy-MM-dd HH24:mm:ss')
-
-
             )
         </foreach>
         SELECT 1 FROM DUAL
