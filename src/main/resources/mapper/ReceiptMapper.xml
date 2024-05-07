@@ -26,7 +26,7 @@
     </select>
 
     <select id="spReceive"  statementType="CALLABLE">
-        {call wmwhse6.SP_RECEIVE_COMMIT(
+        {call WMWHSE6.SP_RECEIVE_COMMIT(
                        #{externreceiptkey, mode=IN, jdbcType=VARCHAR},
                        #{sku, mode=IN, jdbcType=VARCHAR},
                        #{lot3, mode=IN, jdbcType=VARCHAR},
@@ -36,6 +36,13 @@
                        #{flag, mode=OUT, jdbcType=VARCHAR},
                        #{v_msgout, mode=OUT, jdbcType=VARCHAR}
                    )}
+    </select>
+
+    <select id="spSkey_etkey"  statementType="CALLABLE" >
+        {call SKEY_ETKEY(
+               #{skey, mode=IN, jdbcType=VARCHAR},
+               #{etkey, mode=OUT, jdbcType=VARCHAR}
+        )}
     </select>
 
 </mapper>

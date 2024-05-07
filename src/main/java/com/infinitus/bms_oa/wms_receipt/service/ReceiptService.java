@@ -1,17 +1,18 @@
 package com.infinitus.bms_oa.wms_receipt.service;
 
-import com.infinitus.bms_oa.wms_receipt.pojo.Receipt;
-import com.infinitus.bms_oa.wms_receipt.pojo.ReceiptDetailVO;
-import com.infinitus.bms_oa.wms_receipt.pojo.ReceiptVO;
-import com.infinitus.bms_oa.wms_receipt.pojo.SpReceiveCommit;
+import com.infinitus.bms_oa.wms_receipt.pojo.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ReceiptService {
     List<ReceiptVO> getReceipt();
 
     List<ReceiptDetailVO> getReceiptDetailVOList(String key);
 
-    boolean spReceive(SpReceiveCommit spReceiveCommit);
+    SpReceiptVO spReceive(SpReceiveCommit spReceiveCommit);
+
+    void spSkey_etkey(Map<String, String> map);
+
 
 }

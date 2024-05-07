@@ -3,11 +3,11 @@ package com.infinitus.bms_oa.wms_receipt.controller;
 import com.infinitus.bms_oa.oms.excetion.BMSException;
 import com.infinitus.bms_oa.wms_receipt.pojo.ReceiptDetailVO;
 import com.infinitus.bms_oa.wms_receipt.pojo.ReceiptVO;
+import com.infinitus.bms_oa.wms_receipt.pojo.SpReceiptVO;
 import com.infinitus.bms_oa.wms_receipt.pojo.SpReceiveCommit;
 import com.infinitus.bms_oa.wms_receipt.service.ReceiptService;
 import com.infinitus.bms_oa.wms_receipt.utils.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -73,14 +75,27 @@ public class ReceiptController {
      * */
     @ResponseBody
     @RequestMapping("spReceive")
-    public boolean spReceive(SpReceiveCommit spReceiveCommit){
-        boolean a = false;
+    public SpReceiptVO spReceive(SpReceiveCommit spReceiveCommit){
+        SpReceiptVO s = new SpReceiptVO();
         try {
-            a = service.spReceive(spReceiveCommit);
+            s = service.spReceive(spReceiveCommit);
         } catch (BMSException ex) {
             log.info("【ReceiptController.spReceive失败】ex=:{}", ex);
         }
-        return a;
+        return s;
     }
+
+    /**
+     * oracle存储过程测试
+     * */
+    @ResponseBody
+    @RequestMapping("spTest")
+    public String  spTest(){
+        Map<String, String> map = new HashMap<>();
+        map.put("skey", "1486");
+        service.spSkey_etkey(map);
+        return map.get("etkey");
+    }
+
 
 }
