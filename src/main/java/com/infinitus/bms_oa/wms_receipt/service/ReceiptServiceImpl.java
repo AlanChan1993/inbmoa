@@ -64,6 +64,6 @@ public class ReceiptServiceImpl implements ReceiptService{
 
     @Override
     public void spSkey_etkey(Map<String, String> map) {
-         mapper.spSkey_etkey(map);
+        mapper.spSkey_etkey(map);
     }
 }
