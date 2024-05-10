@@ -45,7 +45,6 @@ public class ReceiptServiceImpl implements ReceiptService{
     @Override
     public SpReceiptVO spReceive(SpReceiveCommit spReceiveCommit) {
         SpReceiptVO spReceiptVO = new SpReceiptVO();
-
         if (null != spReceiveCommit || !"".equals(spReceiveCommit)) {
             log.info("【ReceiptServiceImpl.spReceive】spReceiveCommit=:{}", spReceiveCommit);
             Map<String, String> map = new HashMap<>();
@@ -56,6 +55,7 @@ public class ReceiptServiceImpl implements ReceiptService{
             map.put("sap_area_code", spReceiveCommit.getSap_area_code());
             map.put("loc", spReceiveCommit.getLoc());
             mapper.spReceive(map);
+
             spReceiptVO.setFlag(map.get("flag"));
             spReceiptVO.setV_msgout(map.get("v_msgout"));
         }

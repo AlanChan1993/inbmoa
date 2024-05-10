@@ -9,5 +9,5 @@ import java.util.List;
 public class ResultUtil {
     boolean code = false;
     Integer size = 0;
-    Object data;
+    Object data = null;
 }

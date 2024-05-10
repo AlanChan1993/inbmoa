@@ -59,10 +59,12 @@ public class ReceiptController {
         ResultUtil resultUtil = new ResultUtil();
         try {
             detailVOS = service.getReceiptDetailVOList(key);
-            if (detailVOS.size() > 0) {
+            if (detailVOS != null && detailVOS.size() > 0) {
                 resultUtil.setSize(detailVOS.size());
                 resultUtil.setCode(true);
                 resultUtil.setData(detailVOS);
+            }else {
+                resultUtil.setCode(true);
             }
         } catch (BMSException e) {
             log.info("【ReceiptController.getSkuList失败】ex=:{}", e);

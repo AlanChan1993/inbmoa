@@ -15,17 +15,16 @@
         <id column="ITEM_UNIT" property="ITEM_UNIT" jdbcType="VARCHAR"></id>
         <id column="ITEM_MAINPRICE" property="ITEM_MAINPRICE" jdbcType="VARCHAR"></id>
         <id column="ITEM_QUANTITY" property="ITEM_QUANTITY" jdbcType="INTEGER"></id>
-        <id column="ITEM_BATCH" property="ITEM_BATCH" jdbcType="VARCHAR"></id>
+        <id column="CHARG" property="ITEM_BATCH" jdbcType="VARCHAR"></id>
         <id column="ITEM_CLASS" property="ITEM_CLASS" jdbcType="VARCHAR"></id>
         <id column="STATUS" property="STATUS" jdbcType="VARCHAR"></id>
         <id column="MJAHR" property="MJAHR" jdbcType="VARCHAR"></id>
     </resultMap>
 
-
     <!--查找语句-->
     <select id="getImaWmsOrdersDetails" resultMap="BaseResultMap">
-        SELECT A.DETAIL_ID,A.ITEM_NUMBER,A.ITEM_SAPNUMBER,A.ITEM_PRODUCTCODE,A.ITEM_PRODUCTNAME,A.ITEM_UNIT,
-        A.ITEM_MAINPRICE,A.ITEM_QUANTITY, A.ITEM_BATCH,A.STATUS,A.ITEM_CLASS,B.MJAHR
+        SELECT A.DETAIL_ID,A.ITEM_NUMBER,A.ITEM_SAPNUMBER,A.ITEM_PRODUCTCODE,A.ITEM_PRODUCTNAME,A.ITEM_UNIT,A.ITEM_MAINPRICE,
+               A.ITEM_QUANTITY,A.STATUS,A.ITEM_CLASS,B.MJAHR,B.CHARG
         FROM IMA_WMS_ORDERS_DETAIL  A ,SAP2WMS_DEPT_OUTCOME B
         WHERE A.ITEM_SAPNUMBER =B.RSNUM AND  A.ITEM_NUMBER=#{itemNumber,jdbcType=VARCHAR}
     </select>

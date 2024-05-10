@@ -49,7 +49,7 @@ public class WmsWsTasks {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     /**
-     * 30*1s执行一次
+     * 30*30s执行一次
      * */
     @Scheduled(fixedRate = 1000 * 30 * 30)
     public void taskWmsWS() throws UnsupportedEncodingException {
@@ -65,7 +65,7 @@ public class WmsWsTasks {
                 //表单数据
                 Map<String, Object> mapData = new HashMap<>();
                 mapData.put("applyNo", e.getITEM_NUMBER());
-                Date date = null;
+                /*Date date = null;
                 if (null != e.getITEM_APPLYDATE()) {
                     try {
                         date = sdf.parse(e.getITEM_APPLYDATE());
@@ -73,7 +73,8 @@ public class WmsWsTasks {
                         px.printStackTrace();
                     }
                 }
-                mapData.put("applyDateTime", date);
+                mapData.put("applyDateTime", date);*/
+                mapData.put("applyDateTime", e.getITEM_APPLYDATE());
                 mapData.put("applyDealerAccountName", e.getITEM_APPLYPERSON());
                 mapData.put("applyDealerName", e.getITEM_APPLYPERSON_NAME());
                 mapData.put("applyPurpose", e.getITEM_APPLICATIONNAME());
@@ -81,7 +82,7 @@ public class WmsWsTasks {
                 mapData.put("receiverAccountName", e.getITEM_CONSIGNEEUSER());
                 mapData.put("companyNo", e.getITEM_COMPANYCF());
                 mapData.put("compensation", e.getITEM_ISCOMPENSATE());
-                //mapData.put("project", e.getMJAHR());
+                //mapData.put("project", e.getMJAHR());//调整
                 mapData.put("moveType", e.getBWART());
                 mapData.put("costCenter", e.getKOSTL());
                 mapData.put("orderNo", e.getITEM_NUMBER());
