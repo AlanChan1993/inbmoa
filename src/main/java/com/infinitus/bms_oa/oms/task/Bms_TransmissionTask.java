@@ -28,7 +28,7 @@ import java.util.*;
 
 @Slf4j
 //@Component
-public class TransmissionTask {
+public class Bms_TransmissionTask {
 
     @Autowired
     private Bms_Wms_Order_ExpressService service;

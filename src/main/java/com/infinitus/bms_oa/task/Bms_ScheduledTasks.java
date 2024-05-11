@@ -20,7 +20,7 @@ import java.util.List;
 
 @Slf4j
 //@Component
-public class ScheduledTasks {
+public class Bms_ScheduledTasks {
     @Autowired
     private BmsBillAdujestService billService;
 

@@ -28,7 +28,7 @@ import java.util.Map;
 
 @Slf4j
 //@Component
-public class LmtTask {
+public class Bms_LmtTask {
     @Autowired
     private SignItemService signItemService;
 

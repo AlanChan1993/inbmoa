@@ -26,7 +26,7 @@
     </select>
 
     <select id="spReceive"  statementType="CALLABLE">
-        {call WMWHSE6.SP_RECEIVE_COMMIT(
+        {call WMWHSE1.SP_RECEIVE_COMMIT(
                        #{externreceiptkey, mode=IN, jdbcType=VARCHAR},
                        #{sku, mode=IN, jdbcType=VARCHAR},
                        #{lot3, mode=IN, jdbcType=VARCHAR},

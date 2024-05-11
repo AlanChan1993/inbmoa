@@ -128,12 +128,4 @@ public class WmsWsTasks {
         }
 
     }
-
-
-
-
-
-
-
-
 }
