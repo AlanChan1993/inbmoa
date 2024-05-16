@@ -77,7 +77,7 @@ public class WmsConventionTask {
         String resultStr = null;
         //3.调用接口
         try {
-            String url = baseUrl + "?app_key=infinitus_infor&method=wms.warehouse.convention.list" +
+            String url = baseUrl + "?app_key=" + app_key + "&method=" + method +
                     "&v=2.0&customerId=" + customerId + "&format=json&sign_method=md5&timestamp=" + URLEncoder.encode(synDate, "UTF-8") + "&sign=" + aliParam.getSign();
             resultStr = new RequestUtil().doPost(url, mapData);
             //log.info("【WmsConventionTask.excuseWmsConventionTask】resultStr=:{}", resultStr);

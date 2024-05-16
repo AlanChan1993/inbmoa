@@ -43,7 +43,7 @@ public class WmsSkuRelateTask {
     /**
      * 需求暂定五分钟推送一次
      * */
-    @Scheduled(fixedRate = 1000 * 10 * 60)
+    @Scheduled(fixedRate = 1000 * 5 * 60)
     //@Scheduled(fixedRate = 1000 * 60 * 60)//测试使用
     public void excuseBySec() throws Exception {
         getSKURelation();

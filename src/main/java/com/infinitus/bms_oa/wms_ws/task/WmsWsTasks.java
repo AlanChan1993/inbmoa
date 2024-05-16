@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Slf4j
-//@Component
+@Component
 public class WmsWsTasks {
     @Value("${WS.IPASS.baseURL}")
     private String baseURL;
@@ -51,7 +51,7 @@ public class WmsWsTasks {
     /**
      * 30*30s执行一次
      * */
-    @Scheduled(fixedRate = 1000 * 30 * 30)
+    @Scheduled(fixedRate = 1000 * 1 * 60)
     public void taskWmsWS() throws UnsupportedEncodingException {
         log.info("taskWmsWS当前时间:{}",new DateUtil().getNowDate2());
         synOrders();
