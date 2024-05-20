@@ -51,6 +51,7 @@
         <result column="listingDate" property="listingDate" jdbcType="VARCHAR"></result>
         <result column="syn_date" property="syn_date" jdbcType="VARCHAR"></result>
         <result column="certificateNumber" property="certificateNumber" jdbcType="VARCHAR"></result>
+        <result column="maintainer" property="maintainer" jdbcType="VARCHAR"></result>
 
     </resultMap>
     <!--插入语句-->
@@ -91,6 +92,9 @@
             extendedWarrantyDuration , fxhAvailable , listingDate
             <if test="list.certificateNumber!=null">
                 , certificateNumber
+            </if>
+            <if test="list.maintainer!=null">
+                , maintainer
             </if>
             , syn_date
              )
@@ -364,6 +368,9 @@
             <if test="list.certificateNumber!=null">
                 #{list.certificateNumber , jdbcType=VARCHAR},
             </if>
+            <if test="list.maintainer!=null">
+                #{list.maintainer , jdbcType=VARCHAR},
+            </if>
             TO_CHAR(sysdate , 'yyyy-MM-dd HH24:mm:ss')
             )
         </foreach>
@@ -384,6 +391,9 @@
             extendedWarrantyDuration , fxhAvailable , listingDate
             <if test="list.certificateNumber!=null">
                 , certificateNumber
+            </if>
+            <if test="list.maintainer!=null">
+                , maintainer
             </if>
             , syn_date
             )
@@ -659,6 +669,9 @@
             </if>
             <if test="list.certificateNumber!=null">
                 #{list.certificateNumber , jdbcType=VARCHAR},
+            </if>
+            <if test="list.maintainer!=null">
+                #{list.maintainer , jdbcType=VARCHAR},
             </if>
 
             TO_CHAR(sysdate , 'yyyy-MM-dd HH24:mm:ss')

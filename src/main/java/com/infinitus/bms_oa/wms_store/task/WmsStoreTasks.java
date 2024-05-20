@@ -1,6 +1,7 @@
 package com.infinitus.bms_oa.wms_store.task;
 
 import com.alibaba.fastjson.JSONObject;
+import com.infinitus.bms_oa.ipass.utils.IpaasUtils;
 import com.infinitus.bms_oa.utils.DateUtil;
 import com.infinitus.bms_oa.utils.HttpUtil;
 import com.infinitus.bms_oa.wms_store.empty.PagePojo;
@@ -28,7 +29,7 @@ import static java.time.ZoneOffset.UTC;
 import static org.apache.commons.codec.binary.Base64.encodeBase64String;
 
 @Slf4j
-//@Component
+@Component
 public class WmsStoreTasks {
 
     @Value("${wms.secret.value}")
@@ -46,12 +47,29 @@ public class WmsStoreTasks {
     @Value("${wms.ListCommodities.value}")
     private String listCommodities;
 
+    @Value("${Store.ipass.baseUrl}")
+    private String  baseUrl;
+
+    @Value("${Store.ipass.listskus}")
+    private String  listskus_ipass;
+
+    @Value("${Store.ipass.ListCommodities}")
+    private String  ListCommodities_ipass;
+
+    @Value("${Store.ipass.ak}")
+    private String  ak;
+
+    @Value("${Store.ipass.sk}")
+    private String  sk;
+
+    @Value("${Store.ipass.appkey}")
+    private String  appkey;
+
     @Autowired
     private W_STORE_SKUS_Service store_skus_service;
 
     @Autowired
     private W_STORE_COMMODITIES_Service commoditiesService;
-
 
     private static final DateTimeFormatter RFC_7231_FORMATTER = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss O").withLocale(Locale.ENGLISH);
 
@@ -75,6 +93,7 @@ public class WmsStoreTasks {
         store_skus_service.deleteW_STORE_SKUS();//批量更新前先清理掉之前的数据
         commoditiesService.deleteW_STORE_COMMODITIES();//批量更新前先清理掉之前的数据
     }
+
     /**
      * 定时任务 生产一小时执行一次
      * 波哥后面说明是每天全量同步一次
@@ -93,7 +112,7 @@ public class WmsStoreTasks {
      * 需求变更为凌晨1点5分08s执行
      */
     @Scheduled(cron="8 5 1 * * ?")
-    //@Scheduled(fixedRate = 1000 * 30 * 30)//用于生产拿数据后停止
+    @Scheduled(fixedRate = 1000 * 30 * 30)//用于生产拿数据后停止
     public void getStoreDetailTask2() throws UnsupportedEncodingException {
         log.info("getStoreDetailTask2当前同步时间:{}",new DateUtil().getNowDate2());
         getCommodities();
@@ -112,12 +131,14 @@ public class WmsStoreTasks {
         // HMAC 授权
         String authorization = "hmac username=\"" + keyId + "\", algorithm=\"hmac-sha256\", headers=\"date request-line\", signature=\"" + signature + "\"";
         // 打印请求头
-        //log.info("Authorization: {}" , authorization);
-        //log.info("Date: {}", date);
         //2、拼接第一次请求的url并请求接口
-        String urlAll = url + listskus+"?nos=&page=1&size=200";
+        //原id
+        /*String urlAll = url + listskus+"?nos=&page=1&size=200";
         String result = HttpUtil.httpGet(urlAll, authorization, date);
-        JSONObject jsonResult = JSONObject.parseObject(result);
+        JSONObject jsonResult = JSONObject.parseObject(result);*/
+        //改ipass调用
+        Object o = IpaasUtils.getRequest(ak, sk, appkey, baseUrl, listskus_ipass+"?nos=&page=1&size=200");
+        JSONObject jsonResult = JSONObject.parseObject(o.toString());
         //log.info("jsonResult=:{}", jsonResult);
 
         //3、将第一页获取的200条数据封装 并批量插入数据
@@ -136,16 +157,21 @@ public class WmsStoreTasks {
         }
         //log.info("[getSkus0119]pagePojo=:{}",pagePojo);
         for (int i = 0; i <= pagePojo.getTotalPages(); i++) {
-            urlAll = url + listskus + "?nos=&page=" + i + "&size=200";
+            //原调用，已下架
+            /*String urlAll = listskus_ipass + "?nos=&page=" + i + "&size=200";
             String result2 = HttpUtil.httpGet(urlAll, authorization, date);
-            JSONObject jsonResult2 = JSONObject.parseObject(result2);
+            JSONObject jsonResult2 = JSONObject.parseObject(result2);*/
+            //改ipass调用
+            Object oi = IpaasUtils.getRequest(ak, sk, appkey, baseUrl, listskus_ipass + "?nos=&page=" + i + "&size=200");
+            JSONObject jsonResultII = JSONObject.parseObject(oi.toString());
+
             Boolean a = false;
-            if (a==jsonResult2.get("success")) {
-                log.info("【WmsStoreTasks.getCommodities】jsonResult2=:{}", jsonResult2);
+            if (a==jsonResultII.get("success")) {
+                log.info("【WmsStoreTasks.getCommodities】jsonResult2=:{}", jsonResultII);
                 continue;
             }
             log.info("i=:{}", i);//用于检查循环数
-            List<W_STORE_SKUS> skusList2 = (List<W_STORE_SKUS>) jsonResult2.get("skus");
+            List<W_STORE_SKUS> skusList2 = (List<W_STORE_SKUS>) jsonResultII.get("skus");
             if (skusList2.size() > 0) {
                 store_skus_service.insertSkusList(skusList2);
                 store_skus_service.insertSkusHistoryList(skusList2);
@@ -170,9 +196,12 @@ public class WmsStoreTasks {
         //log.info("Authorization: {}" , authorization);
         //log.info("Date: {}", date);
         //2、拼接第一次请求的url并请求接口
-        String urlAll = url + listCommodities+"?nos=&page=1&size=200";
+        /*String urlAll = url + listCommodities+"?nos=&page=1&size=200";
         String result = HttpUtil.httpGet(urlAll, authorization, date);
-        JSONObject jsonResult = JSONObject.parseObject(result);
+        JSONObject jsonResult = JSONObject.parseObject(result);*/
+
+        Object o = IpaasUtils.getRequest(ak, sk, appkey, baseUrl, ListCommodities_ipass+"?nos=&page=1&size=200");
+        JSONObject jsonResult = JSONObject.parseObject(o.toString());
         //log.info("jsonResult=:{}", jsonResult);
 
         //3、将第一页获取的200条数据封装 并批量插入数据
@@ -189,16 +218,21 @@ public class WmsStoreTasks {
         }
         log.info("【WmsStoreTasks.getCommodities】pagePojo=:{}",pagePojo.getTotalPages());
         for (int i = 0; i <= pagePojo.getTotalPages(); i++) {
-            urlAll = url + listCommodities + "?nos=&page=" + i + "&size=200";
+            //原url调用，下架
+           /* String urlAll = url + listCommodities + "?nos=&page=" + i + "&size=200";
             String result2 = HttpUtil.httpGet(urlAll, authorization, date);
-            JSONObject jsonResult2 = JSONObject.parseObject(result2);
+            JSONObject jsonResult2 = JSONObject.parseObject(result2);*/
+            //现ipass调用
+            Object oi = IpaasUtils.getRequest(ak, sk, appkey, baseUrl, ListCommodities_ipass + "?nos=&page=" + i + "&size" +
+                    "=200");
+            JSONObject jsonResultII = JSONObject.parseObject(oi.toString());
             Boolean a = false;
-            if (a==jsonResult2.get("success")) {
-                log.info("【WmsStoreTasks.getCommodities】jsonResult2=:{}", jsonResult2);
+            if (a==jsonResultII.get("success")) {
+                log.info("【WmsStoreTasks.getCommodities】jsonResult2=:{}", jsonResultII);
                 continue;
             }
 
-            List<W_STORE_COMMODITIES> commoditiesList2 = (List<W_STORE_COMMODITIES>) jsonResult2.get("commodities");
+            List<W_STORE_COMMODITIES> commoditiesList2 = (List<W_STORE_COMMODITIES>) jsonResultII.get("commodities");
             if (commoditiesList2.size() > 0) {
                 commoditiesService.insertW_STORE_COMMODITIESList(commoditiesList2);
                 commoditiesService.insertW_STORE_COMMODITIESList_History(commoditiesList2);

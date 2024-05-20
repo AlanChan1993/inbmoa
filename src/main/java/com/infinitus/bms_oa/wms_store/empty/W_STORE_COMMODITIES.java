@@ -52,4 +52,7 @@ public class W_STORE_COMMODITIES {
     private String syn_date;//同步日期
 
     private String certificateNumber;//化妆品/食品证号
+
+    //加字段  部门工号
+    private String maintainer;
 }

@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Slf4j
-@Component
+//@Component
 public class WmsWsTasks {
     @Value("${WS.IPASS.baseURL}")
     private String baseURL;
