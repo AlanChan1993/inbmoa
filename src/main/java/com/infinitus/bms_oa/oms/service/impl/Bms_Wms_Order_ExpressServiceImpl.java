@@ -28,4 +28,9 @@ public class Bms_Wms_Order_ExpressServiceImpl implements Bms_Wms_Order_ExpressSe
         return bmsWmsOrderExpressMapper.update_Order_Express(status, id, message, sysDate);
     }
 
+    @Override
+    public boolean insertExpress(String expressCode, String shipmentNo, String expressCompanyCode) {
+        return bmsWmsOrderExpressMapper.insertExpress(expressCode,shipmentNo,expressCompanyCode);
+    }
+
 }

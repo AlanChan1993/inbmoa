@@ -9,4 +9,6 @@ public interface SignItemMapper {
     List<SignItem> selectAll();
 
     boolean updateStatus(String orderCode,String status,String message);
+
+    boolean insertOrderSign(String order_no);
 }

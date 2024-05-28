@@ -11,4 +11,6 @@ public interface Bms_Wms_Order_ExpressService {
 
     boolean update_Order_Express(String status, Integer id, String message, String sysDate);
 
+    boolean insertExpress(String expressCode, String shipmentNo, String expressCompanyCode);
+
 }

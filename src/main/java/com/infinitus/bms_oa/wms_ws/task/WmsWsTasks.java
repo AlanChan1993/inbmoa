@@ -49,9 +49,9 @@ public class WmsWsTasks {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     /**
-     * 30*30s执行一次
+     * 暂定5分钟执行一次
      * */
-    @Scheduled(fixedRate = 1000 * 1 * 60)
+    @Scheduled(fixedRate = 1000 * 5 * 60)
     public void taskWmsWS() throws UnsupportedEncodingException {
         log.info("taskWmsWS当前时间:{}",new DateUtil().getNowDate2());
         synOrders();

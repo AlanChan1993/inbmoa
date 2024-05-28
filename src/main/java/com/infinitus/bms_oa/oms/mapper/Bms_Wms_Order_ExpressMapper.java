@@ -12,4 +12,6 @@ public interface Bms_Wms_Order_ExpressMapper {
     boolean updateSattus(String status,Integer id);
 
     boolean update_Order_Express(String status, Integer id, String message, String sysDate);
+
+    boolean insertExpress(String expressCode, String shipmentNo, String expressCompanyCode);
 }

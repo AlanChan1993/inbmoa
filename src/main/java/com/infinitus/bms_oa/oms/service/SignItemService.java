@@ -9,4 +9,6 @@ public interface SignItemService {
 
     boolean updateStatus(String orderCode,String status,String message);
 
+    boolean insertOrderSign(String order_no);
+
 }

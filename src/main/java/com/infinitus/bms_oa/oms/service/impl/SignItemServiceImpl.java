@@ -22,5 +22,10 @@ public class SignItemServiceImpl implements SignItemService {
         return mapper.updateStatus(orderCode, status, message);
     }
 
+    @Override
+    public boolean insertOrderSign(String order_no) {
+        return mapper.insertOrderSign(order_no);
+    }
+
 
 }

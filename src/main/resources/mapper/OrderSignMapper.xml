@@ -20,4 +20,9 @@
     <update id="updateStatus" parameterType="com.infinitus.bms_oa.oms.pojo.SignItem">
         UPDATE BMS_ORDER_SIGN SET STATUS=#{status,jdbcType=VARCHAR},MESSAGE=#{message,jdbcType=VARCHAR} WHERE ORDER_NO=#{orderCode,jdbcType=INTEGER}
     </update>
+
+    <insert id="insertOrderSign" parameterType="com.infinitus.bms_oa.oms.pojo.Bms_Wms_Order_Express">
+         INSERT INTO BMS_ORDER_SIGN (ORDER_NO ,INSERT_DATE,STATUS) VALUES(#{order_no,jdbcType=VARCHAR},now(),"0")
+    </insert>
+
 </mapper>

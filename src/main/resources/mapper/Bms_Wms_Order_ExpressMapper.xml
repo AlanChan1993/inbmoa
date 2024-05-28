@@ -25,6 +25,12 @@
         WHERE B.STATUS=#{status,jdbcType=VARCHAR}
     </select>
 
+    <insert id="insertExpress" parameterType="java.lang.String">
+         INSERT INTO BMS.BMS_WMS_ORDER_EXPRESS( EXPRESSCODE, SHIPMENTNO, EXPRESSCOMPANYCODE, STATUS, INSERT_DATE )
+         VALUES( #{expressCode,jdbcType=VARCHAR},#{shipmentNo,jdbcType=VARCHAR},
+         #{expressCompanyCode,jdbcType=VARCHAR}, '0', now())
+    </insert>
+
 
     <!--修改语句-->
     <update id="updateSattus" parameterType="com.infinitus.bms_oa.oms.pojo.Bms_Wms_Order_Express">

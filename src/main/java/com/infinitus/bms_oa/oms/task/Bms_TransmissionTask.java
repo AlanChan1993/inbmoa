@@ -27,7 +27,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Slf4j
-//@Component
+@Component
 public class Bms_TransmissionTask {
 
     @Autowired
@@ -81,7 +81,7 @@ public class Bms_TransmissionTask {
         getOmsReturnOrderInfo();
     }
 
-    @Scheduled(fixedRate = 1000 * 60 * 60)
+    @Scheduled(fixedRate = 1000 * 5 * 60)
     //@Scheduled(fixedRate = 1000 * 5 * 60)//测试使用
     public void excuseByTima() throws Exception {
         executeTransmission();
@@ -109,7 +109,7 @@ public class Bms_TransmissionTask {
         // POST 接口请求方式及参数，接入方根据请求的具体接口做相应的变动
         //String uri = "/openapi/oms-cnbp/v1/return-order/query";//新接口已变更请求地址
         Map<String, Object> mapData = new HashMap<>();
-        mapData.put("updateTimeStart", "2023-07-01 00:00:00");//"2023-07-01 00:00:00"  || platformType.getUseTimeStart()
+        mapData.put("updateTimeStart", platformType.getUseTimeStart());//"2023-07-01 00:00:00"  || platformType.getUseTimeStart()
         mapData.put("updateTimeEnd", platformType.getUseTimeEnd());
         mapData.put("currentPage", 1);
         mapData.put("pageSize", 500);

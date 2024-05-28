@@ -29,7 +29,7 @@ import static java.time.ZoneOffset.UTC;
 import static org.apache.commons.codec.binary.Base64.encodeBase64String;
 
 @Slf4j
-@Component
+//@Component
 public class WmsStoreTasks {
 
     @Value("${wms.secret.value}")
@@ -112,7 +112,7 @@ public class WmsStoreTasks {
      * 需求变更为凌晨1点5分08s执行
      */
     @Scheduled(cron="8 5 1 * * ?")
-    @Scheduled(fixedRate = 1000 * 30 * 30)//用于生产拿数据后停止
+    //@Scheduled(fixedRate = 1000 * 30 * 30)//用于生产拿数据后停止
     public void getStoreDetailTask2() throws UnsupportedEncodingException {
         log.info("getStoreDetailTask2当前同步时间:{}",new DateUtil().getNowDate2());
         getCommodities();
@@ -124,16 +124,16 @@ public class WmsStoreTasks {
     public void  getSkus() throws UnsupportedEncodingException {
         log.info("【WmsStoreTasks.getSkus】",new DateUtil().getNowDate());
         //1、商品中心给出的demo中的加密与打印请求头
-        String method = "GET";
+        /*String method = "GET";
         String date = RFC_7231_FORMATTER.format(ZonedDateTime.now(UTC));// 时间
         // 时间 + 请求类型 + 请求uri 的加密
         String signature =encodeBase64String(new HmacUtils(HmacAlgorithms.HMAC_SHA_256, secret).hmac("date: " + date + "\n" + method + " " + listskus + " HTTP/1.1"));
         // HMAC 授权
-        String authorization = "hmac username=\"" + keyId + "\", algorithm=\"hmac-sha256\", headers=\"date request-line\", signature=\"" + signature + "\"";
+         String authorization = "hmac username=\"" + keyId + "\", algorithm=\"hmac-sha256\", headers=\"date request-line\", signature=\"" + signature + "\"";
         // 打印请求头
         //2、拼接第一次请求的url并请求接口
         //原id
-        /*String urlAll = url + listskus+"?nos=&page=1&size=200";
+        String urlAll = url + listskus+"?nos=&page=1&size=200";
         String result = HttpUtil.httpGet(urlAll, authorization, date);
         JSONObject jsonResult = JSONObject.parseObject(result);*/
         //改ipass调用
@@ -141,7 +141,7 @@ public class WmsStoreTasks {
         JSONObject jsonResult = JSONObject.parseObject(o.toString());
         //log.info("jsonResult=:{}", jsonResult);
 
-        //3、将第一页获取的200条数据封装 并批量插入数据
+        //3、将第一页获取的200条数据封装 并批量插入数据z
         List<W_STORE_SKUS> skusList = (List<W_STORE_SKUS>) jsonResult.get("skus");
         //批量插入
         if(skusList!=null){
@@ -186,7 +186,7 @@ public class WmsStoreTasks {
     public void getCommodities() throws UnsupportedEncodingException {
         log.info("【WmsStoreTasks.getCommodities】",new DateUtil().getNowDate());
         //1、商品中心给出的demo中的加密与打印请求头
-        String method = "GET";
+        /*String method = "GET";
         String date = RFC_7231_FORMATTER.format(ZonedDateTime.now(UTC));// 时间
         // 时间 + 请求类型 + 请求uri 的加密
         String signature =encodeBase64String(new HmacUtils(HmacAlgorithms.HMAC_SHA_256, secret).hmac("date: " + date + "\n" + method + " " + listCommodities + " HTTP/1.1"));
@@ -196,7 +196,7 @@ public class WmsStoreTasks {
         //log.info("Authorization: {}" , authorization);
         //log.info("Date: {}", date);
         //2、拼接第一次请求的url并请求接口
-        /*String urlAll = url + listCommodities+"?nos=&page=1&size=200";
+        String urlAll = url + listCommodities+"?nos=&page=1&size=200";
         String result = HttpUtil.httpGet(urlAll, authorization, date);
         JSONObject jsonResult = JSONObject.parseObject(result);*/
 

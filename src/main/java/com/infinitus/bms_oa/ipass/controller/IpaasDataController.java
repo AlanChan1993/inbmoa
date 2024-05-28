@@ -84,7 +84,7 @@ public class IpaasDataController {
     @ResponseBody
     @RequestMapping("getIpassLmtTrace")
     public Object gettraceInfo(String id){
-        Object o = IpaasUtils.getRequest(ak, sk, appkey, ipaas_url_dev, "/openapi/RFIDInfo/TransmissionController" +
+        Object o = IpaasUtils.getRequest(ak, sk, appkey, ipaas_url_dev, "/openapi/RFIDInfo/lmt/TransmissionController" +
                 "/getLmtJdBsTraceInfo?doNo=" + id);
         return o;
     }
