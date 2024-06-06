@@ -13,6 +13,10 @@ public enum StatusEnum implements CodeEnum {
     GETFAIL(6,"false"),
     GETNULL(7,"获取数据为空(null)"),
 
+    //全球购轨迹接口
+    PARM_NULL(8,"参数不能为空····"),
+    IMPORT_FAIL(9,"数据插入失败"),
+
     ;
     private Integer code;
     private String msg;

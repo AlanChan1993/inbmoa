@@ -38,6 +38,9 @@ public class CouponOrderReportTask {
         getCouponOrderReport();
     }
 
+    /**
+     * 免费劵结算
+     * */
     private void getCouponOrderReport(){
         //String nowDate = simpleDateFormat.format(new Date());
         Calendar calendar = Calendar.getInstance();
