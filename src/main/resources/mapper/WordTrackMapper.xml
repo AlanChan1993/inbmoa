@@ -23,30 +23,5 @@
         </foreach>
     </insert>
 
-    <!--插入语句-->
-    <!--id要与UserMapper文件中表示插入的函数名一致，parameterType表示函数的输入参数的类型-->
-    <insert id="insertWordTrack" parameterType="com.infinitus.bms_oa.oms.pojo.WordTrack">
-      insert into lmt.lmt_oms_word_track(id,name,age)values(#{id,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{age,jdbcType=INTEGER})/*SQL语句*/
-    </insert>
 
-    <!--删除语句-->
-    <delete id="deleteWordTrack" parameterType="java.lang.Integer">
-      delete from user where id =#{id,jdbcType=INTEGER}
-    </delete>
-
-    <!--查找语句-->
-    <!--resultMap表示函数返回的类型-->
-    <select id="selectWordTrack" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-       select * from user where id = #{id,jdbcType=INTEGER}
-    </select>
-
-    <!--查找语句-->
-    <select id="selectAll" resultMap="BaseResultMap">
-        select * from user
-    </select>
-
-    <!--修改语句-->
-    <update id="updateUser" parameterType="com.infinitus.bms_oa.oms.pojo.WordTrack">
-        update user set name=#{name,jdbcType=VARCHAR},age=#{age,jdbcType=INTEGER} where id=#{id,jdbcType=INTEGER}
-    </update>
 </mapper>

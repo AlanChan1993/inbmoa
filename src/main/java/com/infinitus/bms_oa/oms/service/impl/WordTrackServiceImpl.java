@@ -21,10 +21,11 @@ public class WordTrackServiceImpl implements WordTrackService {
     public ResultEntityUtils insertWordTrackS(List<WordTrack> wordTracks) {
         ResultEntityUtils resultEntityUtils = new ResultEntityUtils();
         boolean a = mapper.insertWordTrackS(wordTracks);
+
         if (a) {
             log.info("【WordTrackServiceImpl.insertWordTrackS数据插入成功】wordTracks=:{}",wordTracks);
-            resultEntityUtils.setCode(StatusEnum.SUCCESSFUL.getCode());
-            resultEntityUtils.setDesc(StatusEnum.SUCCESSFUL.getMsg());
+            resultEntityUtils.setCode(StatusEnum.SUCCESS_ALL.getCode());
+            resultEntityUtils.setDesc("插入数量：" + wordTracks.size());
         }else {
             resultEntityUtils.setSuccess(a);
             resultEntityUtils.setCode(StatusEnum.IMPORT_FAIL.getCode());

@@ -17,6 +17,7 @@ public enum StatusEnum implements CodeEnum {
     PARM_NULL(8,"参数不能为空····"),
     IMPORT_FAIL(9,"数据插入失败"),
 
+    SUCCESS_ALL(200,"操作成功"),
     ;
     private Integer code;
     private String msg;
