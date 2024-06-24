@@ -9,4 +9,6 @@ public interface WordTrackService {
 
     ResultEntityUtils insertWordTrackS(List<WordTrack> wordTracks);
 
+    ResultEntityUtils insertWordTrack(List<WordTrack> wordTracks);
+
 }

@@ -10,4 +10,8 @@ public interface WordTrackMapper {
 
     boolean insertWordTrackS(List<WordTrack> wordTracks);
 
+    boolean insertWordTrack(WordTrack wordTrack);
+
+    WordTrack selectWordTrack(String doNo, String express_code, String opeRemark, String opeTime, String opeTitle);
+
 }

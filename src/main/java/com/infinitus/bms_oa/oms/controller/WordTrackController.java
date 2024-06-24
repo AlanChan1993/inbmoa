@@ -29,7 +29,7 @@ public class WordTrackController {
         if (wordTracks.size() < 1) {
             throw new BMSException(StatusEnum.PARM_NULL.getMsg());
         }
-        return service.insertWordTrackS(wordTracks);
+        return service.insertWordTrack(wordTracks);
     }
 
 }

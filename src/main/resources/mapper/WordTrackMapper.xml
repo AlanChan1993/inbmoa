@@ -7,9 +7,16 @@
 <mapper namespace="com.infinitus.bms_oa.oms.mapper.WordTrackMapper">
     <!--定义一个名为BaseResultMap的返回类型-->
     <resultMap id="BaseResultMap" type="com.infinitus.bms_oa.oms.pojo.WordTrack">
-        <id column="id" property="id" jdbcType="INTEGER"></id>
-        <result column="name" property="name" jdbcType="VARCHAR"></result>
-        <result column="age" property="age" jdbcType="INTEGER"></result>
+        <result column="creationTime" property="creationTime" jdbcType="VARCHAR"></result>
+        <result column="doNo" property="doNo" jdbcType="VARCHAR"></result>
+        <result column="express_code" property="express_code" jdbcType="VARCHAR"></result>
+        <result column="opeName" property="opeName" jdbcType="VARCHAR"></result>
+        <result column="opeRemark" property="opeRemark" jdbcType="VARCHAR"></result>
+        <result column="opeTime" property="opeTime" jdbcType="VARCHAR"></result>
+        <result column="opeTitle" property="opeTitle" jdbcType="VARCHAR"></result>
+        <result column="status" property="status" jdbcType="INTEGER"></result>
+        <result column="waybillCode" property="waybillCode" jdbcType="VARCHAR"></result>
+
     </resultMap>
 
     <insert id="insertWordTrackS"  parameterType="java.util.List">
@@ -22,6 +29,24 @@
             )
         </foreach>
     </insert>
+
+    <insert id="insertWordTrack"  parameterType="com.infinitus.bms_oa.oms.pojo.WordTrack">
+        INSERT INTO LMT.LMT_OMS_WORD_TRACK(CREATIONTIME,DONO,EXPRESS_CODE,OPENAME,OPEREMARK,OPETIME,OPETITLE,STATUS,WAYBILLCODE)
+        VALUES
+        (
+            #{creationTime,jdbcType=VARCHAR},#{doNo,jdbcType=VARCHAR},#{express_code,jdbcType=VARCHAR}
+            ,#{opeName,jdbcType=VARCHAR},#{opeRemark,jdbcType=VARCHAR},#{opeTime,jdbcType=VARCHAR}
+            ,#{opeTitle,jdbcType=VARCHAR},#{status,jdbcType=INTEGER},#{waybillCode,jdbcType=VARCHAR}
+       )
+    </insert>
+
+    <select id="selectWordTrack" parameterType="java.lang.String" resultMap="BaseResultMap">
+       SELECT * FROM LMT.LMT_OMS_WORD_TRACK WHERE DONO = #{doNo,jdbcType=VARCHAR}
+       AND EXPRESS_CODE = #{express_code,jdbcType=VARCHAR}
+       AND OPEREMARK = #{opeRemark,jdbcType=VARCHAR}
+       AND OPETIME = #{opeTime,jdbcType=VARCHAR}  AND OPETITLE = #{opeTitle,jdbcType=VARCHAR}
+       AND DONO IS NOT NULL
+    </select>
 
 
 </mapper>
