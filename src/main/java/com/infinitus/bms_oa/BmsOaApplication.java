@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
-@MapperScan("com.infinitus.bms_oa.mapper")
+/*@MapperScan("com.infinitus.bms_oa.mapper")
 @MapperScan("com.infinitus.bms_oa.bms_op.mapper")
 @MapperScan("com.infinitus.bms_oa.wms_store.mapper")//指向mapper.java
 @MapperScan("com.infinitus.bms_oa.bms_free.mapper")
@@ -17,7 +17,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @MapperScan("com.infinitus.bms_oa.wms_pos.mapper")
 @MapperScan("com.infinitus.bms_oa.wms_ws.mapper")
 @MapperScan("com.infinitus.bms_oa.ipass.mapper")
-@MapperScan("com.infinitus.bms_oa.wms_receipt.mapper")
+@MapperScan("com.infinitus.bms_oa.wms_receipt.mapper")*/
+@MapperScan(value={"com.infinitus.**.mapper"})
 @EnableScheduling
 @EnableTransactionManagement//用于事务回滚
 public class BmsOaApplication {

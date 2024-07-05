@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -39,13 +41,16 @@ public class WordTrackServiceImpl implements WordTrackService {
 
     @Override
     public ResultEntityUtils insertWordTrack(List<WordTrack> wordTracks) {
-        ResultEntityUtils resultEntityUtils = new ResultEntityUtils();
-        boolean a = true;
         if (wordTracks.size() < 1) {
             throw new BMSException(StatusEnum.PARM_NULL.getMsg());
         }
+
+        ResultEntityUtils resultEntityUtils = new ResultEntityUtils();
+        boolean a = true;
         List<WordTrack> wordTrackList = new ArrayList<>();
-        for (WordTrack wordTrack : wordTracks) {
+        Set<WordTrack> trackSet = new HashSet<>(wordTracks);
+
+        for (WordTrack wordTrack : trackSet) {
             WordTrack wordTrackF = mapper.selectWordTrack(wordTrack.getDoNo(), wordTrack.getExpress_code(),
                     wordTrack.getOpeRemark(), wordTrack.getOpeTime(), wordTrack.getOpeTitle());
             if (ObjectUtils.isEmpty(wordTrackF)) {
@@ -53,15 +58,9 @@ public class WordTrackServiceImpl implements WordTrackService {
                 wordTrackList.add(wordTrack);
             }
         }
-        if (a) {
-            log.info("【WordTrackServiceImpl.insertWordTrackS数据插入成功】wordTracks=:{}",wordTrackList);
-            resultEntityUtils.setCode(StatusEnum.SUCCESS_ALL.getCode());
-            resultEntityUtils.setDesc("插入数量：" + wordTrackList.size());
-        }else {
-            resultEntityUtils.setSuccess(a);
-            resultEntityUtils.setCode(StatusEnum.IMPORT_FAIL.getCode());
-            resultEntityUtils.setDesc(StatusEnum.IMPORT_FAIL.getMsg());
-        }
+        //log.info("【WordTrackServiceImpl.insertWordTrackS数据插入成功】wordTracks=:{}", wordTrackList);
+        resultEntityUtils.setCode(StatusEnum.SUCCESS_ALL.getCode());
+        resultEntityUtils.setDesc("插入数量：" + wordTrackList.size());
         return resultEntityUtils;
     }
 

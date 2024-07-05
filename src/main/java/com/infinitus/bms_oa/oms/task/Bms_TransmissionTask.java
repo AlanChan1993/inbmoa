@@ -75,7 +75,7 @@ public class Bms_TransmissionTask {
     private String IpassUri;
    //---------------------------定时器开------------------------
 
-    @Scheduled(cron="0 30 3 * * ?")
+    @Scheduled(cron="0 30 3 * * ?")//凌晨3点半
     //@Scheduled(fixedRate = 1000 * 5 * 60)//测试间隔一小时
     public void excuseByDay() throws Exception {
         getOmsReturnOrderInfo();
