@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class WordTrack {
+    private String t_id;
     private String creationTime;
     private String doNo;
     private String express_code;

@@ -32,4 +32,13 @@ public class WordTrackController {
         return service.insertWordTrack(wordTracks);
     }
 
+    @ResponseBody
+    @RequestMapping("updateWTrackSign")
+    public ResultEntityUtils  updateWTrack(@RequestBody List<WordTrack> wordTracks){
+        if (wordTracks.size() < 1) {
+            throw new BMSException(StatusEnum.PARM_NULL.getMsg());
+        }
+        return service.updateWTrack(wordTracks);
+
+    }
 }

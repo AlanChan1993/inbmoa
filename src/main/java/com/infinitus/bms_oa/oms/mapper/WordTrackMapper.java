@@ -12,6 +12,9 @@ public interface WordTrackMapper {
 
     boolean insertWordTrack(WordTrack wordTrack);
 
-    WordTrack selectWordTrack(String doNo, String express_code, String opeRemark, String opeTime, String opeTitle);
+    WordTrack selectWordTrack(WordTrack wordTrack);
 
+    WordTrack selectWordTrackBySome(String doNo,String  opeRemark,String opeTime);
+
+    boolean updateWTrack(String t_id);
 }

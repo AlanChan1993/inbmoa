@@ -7,6 +7,7 @@
 <mapper namespace="com.infinitus.bms_oa.oms.mapper.WordTrackMapper">
     <!--定义一个名为BaseResultMap的返回类型-->
     <resultMap id="BaseResultMap" type="com.infinitus.bms_oa.oms.pojo.WordTrack">
+        <result column="t_id" property="t_id" jdbcType="VARCHAR"></result>
         <result column="creationTime" property="creationTime" jdbcType="VARCHAR"></result>
         <result column="doNo" property="doNo" jdbcType="VARCHAR"></result>
         <result column="express_code" property="express_code" jdbcType="VARCHAR"></result>
@@ -42,11 +43,39 @@
 
     <select id="selectWordTrack" parameterType="java.lang.String" resultMap="BaseResultMap">
        SELECT * FROM LMT.LMT_OMS_WORD_TRACK WHERE DONO = #{doNo,jdbcType=VARCHAR}
-       AND EXPRESS_CODE = #{express_code,jdbcType=VARCHAR}
-       AND OPEREMARK = #{opeRemark,jdbcType=VARCHAR}
-       AND OPETIME = #{opeTime,jdbcType=VARCHAR}  AND OPETITLE = #{opeTitle,jdbcType=VARCHAR}
+        <if test="opeRemark != null and opeRemark !=''">
+            AND OPEREMARK = #{opeRemark,jdbcType=VARCHAR}
+        </if>
+
+        <if test="opeTime != null and opeTime !=''">
+            AND OPETIME = #{opeTime,jdbcType=VARCHAR}
+        </if>
+
+       <if test="opeTitle != null and opeTitle !=''">
+         AND OPETITLE = #{opeTitle,jdbcType=VARCHAR}
+       </if>
+
+        <if test="express_code != null and express_code !=''">
+         AND EXPRESS_CODE = #{express_code,jdbcType=VARCHAR}
+        </if>
        AND DONO IS NOT NULL
     </select>
 
+    <select id="selectWordTrackBySome" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM LMT.LMT_OMS_WORD_TRACK WHERE DONO = #{doNo,jdbcType=VARCHAR}
+        <if test="opeRemark != null and opeRemark !=''">
+            AND OPEREMARK = #{opeRemark,jdbcType=VARCHAR}
+        </if>
+
+        <if test="opeTime != null and opeTime !=''">
+            AND OPETIME = #{opeTime,jdbcType=VARCHAR}
+        </if>
+
+        AND DONO IS NOT NULL
+    </select>
+
+    <update id="updateWTrack" >
+        update LMT.LMT_OMS_WORD_TRACK set opeTitle='Z', status=4 where t_id=#{t_id,jdbcType=VARCHAR}
+    </update>
 
 </mapper>

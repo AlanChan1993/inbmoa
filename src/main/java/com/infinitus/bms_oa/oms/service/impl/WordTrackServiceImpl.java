@@ -51,8 +51,7 @@ public class WordTrackServiceImpl implements WordTrackService {
         Set<WordTrack> trackSet = new HashSet<>(wordTracks);
 
         for (WordTrack wordTrack : trackSet) {
-            WordTrack wordTrackF = mapper.selectWordTrack(wordTrack.getDoNo(), wordTrack.getExpress_code(),
-                    wordTrack.getOpeRemark(), wordTrack.getOpeTime(), wordTrack.getOpeTitle());
+            WordTrack wordTrackF = mapper.selectWordTrack(wordTrack);
             if (ObjectUtils.isEmpty(wordTrackF)) {
                 a=mapper.insertWordTrack(wordTrack);
                 wordTrackList.add(wordTrack);
@@ -61,6 +60,30 @@ public class WordTrackServiceImpl implements WordTrackService {
         //log.info("【WordTrackServiceImpl.insertWordTrackS数据插入成功】wordTracks=:{}", wordTrackList);
         resultEntityUtils.setCode(StatusEnum.SUCCESS_ALL.getCode());
         resultEntityUtils.setDesc("插入数量：" + wordTrackList.size());
+        return resultEntityUtils;
+    }
+
+    @Override
+    public ResultEntityUtils updateWTrack(List<WordTrack> wordTracks) {
+        if (wordTracks.size() < 1) {
+            throw new BMSException(StatusEnum.PARM_NULL.getMsg());
+        }
+        ResultEntityUtils resultEntityUtils = new ResultEntityUtils();
+        boolean a = true;
+        List<WordTrack> wordTrackList = new ArrayList<>();
+        Set<WordTrack> trackSet = new HashSet<>(wordTracks);
+        for (WordTrack wordTrack : trackSet) {
+            WordTrack wordTrackF = mapper.selectWordTrackBySome(wordTrack.getDoNo(), wordTrack.getOpeRemark(), wordTrack.getOpeTime());
+            if (ObjectUtils.isEmpty(wordTrackF)) {
+                a=mapper.insertWordTrack(wordTrack);
+                wordTrackList.add(wordTrack);
+            }else{
+                a = mapper.updateWTrack(wordTrackF.getT_id());
+                wordTrackList.add(wordTrack);
+            }
+        }
+        resultEntityUtils.setCode(StatusEnum.SUCCESS_ALL.getCode());
+        resultEntityUtils.setDesc("更新数量：" + wordTrackList.size());
         return resultEntityUtils;
     }
 
