@@ -26,7 +26,7 @@ import java.util.*;
  * 生产暂时未建表 未上线 2024-06-04
  * */
 @Slf4j
-//@Component
+@Component
 public class WmsWsTasks {
     @Value("${WS.IPASS.baseURL}")
     private String baseURL;
@@ -50,6 +50,9 @@ public class WmsWsTasks {
     private ImaWmsOrdersDetailService detailService;
 
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    SimpleDateFormat oFormats = new SimpleDateFormat("dd-MM月 -yy HH.mm.ss.SSSSSSSSS 上午", Locale.CHINA);
+    SimpleDateFormat oFormatx = new SimpleDateFormat("dd-MM月 -yy HH.mm.ss.SSSSSSSSS 下午", Locale.CHINA);
+
 
     /**
      * 暂定5分钟执行一次
@@ -63,22 +66,34 @@ public class WmsWsTasks {
 
     public void synOrders(){
         List<ImaWmsLogisticsOrders> ordersList = service.getImaWmsLogisticsOrdersList();
-        if (ordersList.size() > 0) {
-            log.info("【WmsWsTasks.synOrders()】,ordersList.size()={}", ordersList.size());
-            ordersList.stream().forEach(e->{
+        Set<ImaWmsLogisticsOrders> orderSets = new HashSet<>(ordersList) ;
+        if (orderSets.size() > 0) {
+            log.info("【WmsWsTasks.synOrders()】,orderSets.size()={}", orderSets.size());
+            orderSets.stream().forEach(e->{
                 //表单数据
                 Map<String, Object> mapData = new HashMap<>();
                 mapData.put("applyNo", e.getITEM_NUMBER());
-                /*Date date = null;
-                if (null != e.getITEM_APPLYDATE()) {
+                //由于时间规范问题特别处理
+                Date date = null;
+                String dateStr =  e.getITEM_APPLYDATE();
+                if (null != dateStr && dateStr.indexOf("上午") > 0) {
                     try {
-                        date = sdf.parse(e.getITEM_APPLYDATE());
+                        date = oFormats.parse(dateStr);
+                    } catch (ParseException ex) {
+                        ex.printStackTrace();
+                    }
+                    dateStr = sdf.format(date);
+                }else if(null != dateStr && dateStr.indexOf("下午") > 0){
+                    try {
+                        date = oFormatx.parse(dateStr);
+                        dateStr = sdf.format(date);
                     } catch (ParseException px) {
                         px.printStackTrace();
                     }
                 }
-                mapData.put("applyDateTime", date);*/
-                mapData.put("applyDateTime", e.getITEM_APPLYDATE());
+
+                mapData.put("applyDateTime", dateStr);
+                //mapData.put("applyDateTime", e.getITEM_APPLYDATE());
                 mapData.put("applyDealerAccountName", e.getITEM_APPLYPERSON());
                 mapData.put("applyDealerName", e.getITEM_APPLYPERSON_NAME());
                 mapData.put("applyPurpose", e.getITEM_APPLICATIONNAME());
@@ -122,10 +137,13 @@ public class WmsWsTasks {
                 //推送成功后需要更新推送状态 status
                 if ("true".equals(responseEntity.getSuccess())) {
                     log.info("responseEntity.getSuccess()=true推送成功");
+                    service.updateSap2WmsStatus(ResultEnum.SUCCESS.getCode().toString(), e.getITEM_SAPNUMBER());
                     service.updateStatus(ResultEnum.SUCCESS.getCode().toString(), e.getORDER_ID());
+
                 }else {
                     //推送失败操作
                     service.updateStatus(ResultEnum.FALSE.getCode().toString(), e.getORDER_ID());
+                    service.updateSap2WmsStatus(ResultEnum.FALSE.getCode().toString(), e.getITEM_SAPNUMBER());
                     log.info("responseEntity.getSuccess()=flase推送失败");
                 }
             });

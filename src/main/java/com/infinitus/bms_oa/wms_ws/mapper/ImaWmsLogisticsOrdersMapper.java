@@ -7,6 +7,10 @@ import java.util.List;
 public interface ImaWmsLogisticsOrdersMapper {
     List<ImaWmsLogisticsOrders> getImaWmsLogisticsOrdersList();
 
+    List<String> getSap2WmsDeptOutcomeList();
+
     boolean updateStatus(String status,Integer id);
+
+    boolean updateSap2WmsStatus(String status,String rsnum);
 
 }

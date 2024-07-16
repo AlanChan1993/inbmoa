@@ -27,7 +27,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Slf4j
-@Component
+//@Component
 public class Bms_TransmissionTask {
 
     @Autowired

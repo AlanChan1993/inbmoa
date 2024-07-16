@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/WmsWsController")
@@ -19,8 +22,14 @@ public class ImaWmsLogisticsOrdersController {
 
     @PostMapping("getIMAOrders")
     public Object putOrderList(){
-
         return "";
     }
+
+    @ResponseBody
+    @RequestMapping("getSAPByStatus")
+    public List<String> get(){
+        return service.getSap2WmsDeptOutcomeList();
+    }
+
 
 }

@@ -25,7 +25,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Slf4j
-//@Component
+@Component
 public class WmsConventionTask {
     @Autowired
     private WmsConventionService wmsConventionService;
