@@ -12,6 +12,6 @@ public class WordTrack {
     private String opeRemark;
     private String opeTime;
     private String opeTitle;
-    private Integer status;
+    private String status;
     private String waybillCode;
 }

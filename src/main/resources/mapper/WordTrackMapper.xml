@@ -15,7 +15,7 @@
         <result column="opeRemark" property="opeRemark" jdbcType="VARCHAR"></result>
         <result column="opeTime" property="opeTime" jdbcType="VARCHAR"></result>
         <result column="opeTitle" property="opeTitle" jdbcType="VARCHAR"></result>
-        <result column="status" property="status" jdbcType="INTEGER"></result>
+        <result column="status" property="status" jdbcType="VARCHAR"></result>
         <result column="waybillCode" property="waybillCode" jdbcType="VARCHAR"></result>
 
     </resultMap>
@@ -26,7 +26,7 @@
         <foreach collection ="list" item="wordTracks" separator =",">
             (#{wordTracks.creationTime,jdbcType=VARCHAR},#{wordTracks.doNo,jdbcType=VARCHAR},#{wordTracks.express_code,jdbcType=VARCHAR}
             ,#{wordTracks.opeName,jdbcType=VARCHAR},#{wordTracks.opeRemark,jdbcType=VARCHAR},#{wordTracks.opeTime,jdbcType=VARCHAR}
-            ,#{wordTracks.opeTitle,jdbcType=VARCHAR},#{wordTracks.status,jdbcType=INTEGER},#{wordTracks.waybillCode,jdbcType=VARCHAR}
+            ,#{wordTracks.opeTitle,jdbcType=VARCHAR},#{wordTracks.status,jdbcType=VARCHAR},#{wordTracks.waybillCode,jdbcType=VARCHAR}
             )
         </foreach>
     </insert>
@@ -37,7 +37,7 @@
         (
             #{creationTime,jdbcType=VARCHAR},#{doNo,jdbcType=VARCHAR},#{express_code,jdbcType=VARCHAR}
             ,#{opeName,jdbcType=VARCHAR},#{opeRemark,jdbcType=VARCHAR},#{opeTime,jdbcType=VARCHAR}
-            ,#{opeTitle,jdbcType=VARCHAR},#{status,jdbcType=INTEGER},#{waybillCode,jdbcType=VARCHAR}
+            ,#{opeTitle,jdbcType=VARCHAR},#{status,jdbcType=VARCHAR},#{waybillCode,jdbcType=VARCHAR}
        )
     </insert>
 
@@ -75,7 +75,7 @@
     </select>
 
     <update id="updateWTrack" >
-        update LMT.LMT_OMS_WORD_TRACK set opeTitle='Z', status=4 where t_id=#{t_id,jdbcType=VARCHAR}
+        update LMT.LMT_OMS_WORD_TRACK set opeTitle=#{opeTitle,jdbcType=VARCHAR}, status=#{status,jdbcType=VARCHAR} where t_id=#{t_id,jdbcType=VARCHAR}
     </update>
 
 </mapper>

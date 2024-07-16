@@ -16,5 +16,5 @@ public interface WordTrackMapper {
 
     WordTrack selectWordTrackBySome(String doNo,String  opeRemark,String opeTime);
 
-    boolean updateWTrack(String t_id);
+    boolean updateWTrack(String t_id,String opeTitle,String status);
 }

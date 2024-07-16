@@ -70,20 +70,21 @@ public class WordTrackServiceImpl implements WordTrackService {
         }
         ResultEntityUtils resultEntityUtils = new ResultEntityUtils();
         boolean a = true;
-        List<WordTrack> wordTrackList = new ArrayList<>();
+        List<WordTrack> wordTrackInsert = new ArrayList<>();
+        List<WordTrack> wordTrackUpdate = new ArrayList<>();
         Set<WordTrack> trackSet = new HashSet<>(wordTracks);
         for (WordTrack wordTrack : trackSet) {
             WordTrack wordTrackF = mapper.selectWordTrackBySome(wordTrack.getDoNo(), wordTrack.getOpeRemark(), wordTrack.getOpeTime());
             if (ObjectUtils.isEmpty(wordTrackF)) {
                 a=mapper.insertWordTrack(wordTrack);
-                wordTrackList.add(wordTrack);
+                wordTrackInsert.add(wordTrack);
             }else{
-                a = mapper.updateWTrack(wordTrackF.getT_id());
-                wordTrackList.add(wordTrack);
+                a = mapper.updateWTrack(wordTrackF.getT_id(), wordTrack.getOpeTitle(), wordTrack.getStatus());
+                wordTrackUpdate.add(wordTrack);
             }
         }
         resultEntityUtils.setCode(StatusEnum.SUCCESS_ALL.getCode());
-        resultEntityUtils.setDesc("更新数量：" + wordTrackList.size());
+        resultEntityUtils.setDesc("更新数量：" + wordTrackUpdate.size() + ";新增数量：" + wordTrackInsert.size());
         return resultEntityUtils;
     }
 
