@@ -49,6 +49,7 @@ public class WmsWsTasks {
     @Autowired
     private ImaWmsOrdersDetailService detailService;
 
+    SimpleDateFormat sdfNew = new SimpleDateFormat("yyyy-MM-dd");
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
     SimpleDateFormat oFormats = new SimpleDateFormat("dd-MM月 -yy HH.mm.ss.SSSSSSSSS 上午", Locale.CHINA);
     SimpleDateFormat oFormatx = new SimpleDateFormat("dd-MM月 -yy HH.mm.ss.SSSSSSSSS 下午", Locale.CHINA);
@@ -90,6 +91,13 @@ public class WmsWsTasks {
                     } catch (ParseException px) {
                         px.printStackTrace();
                     }
+                }else{
+                    try {
+                        date = sdfNew.parse(dateStr);
+                        dateStr = sdf.format(date);
+                    } catch (ParseException px) {
+                        px.printStackTrace();
+                    }
                 }
 
                 mapData.put("applyDateTime", dateStr);
@@ -108,9 +116,10 @@ public class WmsWsTasks {
                 mapData.put("compensation", e.getITEM_ISCOMPENSATE());
                 //明细
                 List<ImaWmsOrdersDetail> detailList = detailService.getImaWmsOrdersDetails(e.getITEM_NUMBER());
+                Set<ImaWmsOrdersDetail> detailSet = new HashSet<>(detailList) ;
                 List<OrderDetailsDTO> details =new ArrayList<>();
-                if(detailList.size()>0){
-                    detailList.stream().forEach(d->{
+                if(detailSet.size()>0){
+                    detailSet.stream().forEach(d->{
                         OrderDetailsDTO detailsDTO = new OrderDetailsDTO();
                         detailsDTO.setProdCode(d.getITEM_PRODUCTCODE());
                         detailsDTO.setMaterialType(d.getITEM_CLASS());

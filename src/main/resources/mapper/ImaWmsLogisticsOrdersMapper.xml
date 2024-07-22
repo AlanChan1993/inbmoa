@@ -34,7 +34,7 @@
             ITEM_CONSIGNEEUSER ,ITEM_CONSIGNEEUSER_NAME ,ITEM_SAPNUMBER,ITEM_PROJECT,ITEM_COMPANYCF,ITEM_MOVETYPE,
             ITEM_ISCOMPENSATE,ITEM_APPLYDATE,B.BWART,B.MJAHR,B.KOSTL
         FROM IMA_WMS_LOGISTICS_ORDERS A ,SAP2WMS_DEPT_OUTCOME B
-        WHERE A.ITEM_SAPNUMBER =B.RSNUM AND  (B.STATUS='0' OR B.STATUS='' OR B.STATUS='4' )
+        WHERE A.ITEM_SAPNUMBER =B.RSNUM AND  (B.STATUS='0' OR B.STATUS=''  ) AND ROWNUM  &lt;= 50
     </select>
 
     <select id="getSap2WmsDeptOutcomeList" resultType="java.lang.String" >
@@ -48,6 +48,7 @@
 
 
     <update id="updateSap2WmsStatus" >
-        UPDATE SAP2WMS_DEPT_OUTCOME SET STATUS=#{status,jdbcType=VARCHAR} WHERE RSNUM=#{rsnum,jdbcType=VARCHAR}
+        UPDATE SAP2WMS_DEPT_OUTCOME SET STATUS=#{status,jdbcType=VARCHAR}
+        WHERE RSNUM=#{rsnum,jdbcType=VARCHAR}  AND STATUS !='2'
     </update>
 </mapper>
