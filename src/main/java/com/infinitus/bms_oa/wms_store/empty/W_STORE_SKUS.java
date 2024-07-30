@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 public class W_STORE_SKUS {
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     //private Integer store_id;
     private String  no;//sku编码

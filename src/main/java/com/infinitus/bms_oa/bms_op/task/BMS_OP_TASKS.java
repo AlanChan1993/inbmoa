@@ -25,7 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 @Slf4j
-//@Component
+@Component
 public class BMS_OP_TASKS {
     @Autowired
     private NopoItemsService nopoItemsService;

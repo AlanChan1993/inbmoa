@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 @Slf4j
-//@Component
+@Component
 public class CouponOrderReportTask {
     @Value("${CouponOrderReport.url.value}")
     private String url;

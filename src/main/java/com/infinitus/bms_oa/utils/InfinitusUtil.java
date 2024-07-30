@@ -6,7 +6,7 @@ import com.infinitus.bms_oa.pojo.InfinitusDetailTablesRow;
 import java.text.SimpleDateFormat;
 
 public class InfinitusUtil {
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public InfinitusDetailTablesRow setInfinitusDetailTablesRow(BmsBillAdjust billAdjust) {
         InfinitusDetailTablesRow infinitusDetailTablesRow = new InfinitusDetailTablesRow();

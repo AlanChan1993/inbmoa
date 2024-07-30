@@ -11,7 +11,7 @@ import java.util.Date;
 //@Component
 @Slf4j
 public class TestTask {
-    private  static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    private  static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     /**
      * 每30s处理一次   1000 * 1 * 30

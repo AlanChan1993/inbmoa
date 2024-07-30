@@ -18,7 +18,7 @@ public class W_STORE_SKUS_ServiceImpl implements W_STORE_SKUS_Service {
     @Autowired
     private W_STORE_SKUS_Mapper mapper;
 
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Override
     public boolean updateW_STORE_SKUS(W_STORE_SKUS w_store_skus) {

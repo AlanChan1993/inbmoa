@@ -17,7 +17,7 @@
 
     <!--查找语句-->
     <select id="getTransmission" resultMap="BaseResultMap">
-        SELECT A.DO_NO, A.OPE_TITLE , A.OPE_TIME , A.OPE_REMARK , A.OPE_NAME , A.WAYBILL_CODE , A.STATUS
+        SELECT DISTINCT A.DO_NO, A.OPE_TITLE , A.OPE_TIME , A.OPE_REMARK , A.OPE_NAME , A.WAYBILL_CODE , A.STATUS
          FROM LMT.LMT_JD_BS_TRACE_INFO A WHERE A.DO_NO=#{doNo,jdbcType=VARCHAR} ORDER BY A.OPE_TIME
     </select>
 

@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-//@Component
+@Component
 public class Bms_LmtTask {
     @Autowired
     private SignItemService signItemService;
@@ -52,8 +52,8 @@ public class Bms_LmtTask {
     /**
      * 需求暂定五分钟推送一次
      * */
-    //@Scheduled(fixedRate = 1000 * 5 * 60)
-    @Scheduled(fixedRate = 1000 * 1 * 60)//测试使用
+    @Scheduled(fixedRate = 1000 * 5 * 60)
+    //@Scheduled(fixedRate = 1000 * 1 * 60)//测试使用
     public void excuseBySec() throws Exception {
         putOrderSign();
     }

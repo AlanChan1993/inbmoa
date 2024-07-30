@@ -27,7 +27,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Slf4j
-//@Component
+@Component
 public class Bms_TransmissionTask {
 
     @Autowired
@@ -81,8 +81,8 @@ public class Bms_TransmissionTask {
         getOmsReturnOrderInfo();
     }
 
-    //@Scheduled(fixedRate = 1000 * 5 * 60)//生产
-    @Scheduled(fixedRate = 1000 * 1 * 60)//测试使用
+    @Scheduled(fixedRate = 1000 * 5 * 60)//生产
+    //@Scheduled(fixedRate = 1000 * 1 * 60)//测试使用
     public void excuseByTima() throws Exception {
         executeTransmission();
     }

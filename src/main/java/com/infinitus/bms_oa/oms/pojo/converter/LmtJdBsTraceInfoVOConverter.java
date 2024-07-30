@@ -11,7 +11,7 @@ import java.util.List;
 
 @Slf4j
 public class LmtJdBsTraceInfoVOConverter {
-    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public static LmtJdBsTraceInfoVO convert(LmtJdBsTraceInfo lmtInfo) throws Exception {
         if (lmtInfo == null) {

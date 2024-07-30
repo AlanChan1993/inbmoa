@@ -34,7 +34,7 @@ public class InfinitusController {
     @Value("${BMS.URL.billToOA}")
     private String url;
 
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @RequestMapping("/Bill")
     public BmsBillAdjust bmsBill(Integer id) {

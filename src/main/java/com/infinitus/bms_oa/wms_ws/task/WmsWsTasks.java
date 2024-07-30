@@ -26,7 +26,7 @@ import java.util.*;
  * 生产暂时未建表 未上线 2024-06-04
  * */
 @Slf4j
-@Component
+//@Component
 public class WmsWsTasks {
     @Value("${WS.IPASS.baseURL}")
     private String baseURL;
@@ -50,7 +50,7 @@ public class WmsWsTasks {
     private ImaWmsOrdersDetailService detailService;
 
     SimpleDateFormat sdfNew = new SimpleDateFormat("yyyy-MM-dd");
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     SimpleDateFormat oFormats = new SimpleDateFormat("dd-MM月 -yy HH.mm.ss.SSSSSSSSS 上午", Locale.CHINA);
     SimpleDateFormat oFormatx = new SimpleDateFormat("dd-MM月 -yy HH.mm.ss.SSSSSSSSS 下午", Locale.CHINA);
 
