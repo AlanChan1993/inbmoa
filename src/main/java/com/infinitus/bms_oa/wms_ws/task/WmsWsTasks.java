@@ -128,32 +128,32 @@ public class WmsWsTasks {
                         detailsDTO.setProject(d.getMJAHR());
                         details.add(detailsDTO);
                     });
-                }
-                mapData.put("details", details);
-                JSONObject jsonObject = new JSONObject(mapData);
-                log.info("【WmsWsTasks.synOrders】jsonObject=:{}", jsonObject);
-                ResponseEntity responseEntity = null;
-                JSONObject response = null;
-                try {
-                    response = new IpassUtil().postReq(ipassUri, jsonObject.toString(), AppKey, AK, SK, baseURL);
-                    log.info("【synOrders.IpassUtil().postReq】response={}", response);
-                } catch (Exception ex) {
-                    log.info("【synOrders.IpassUtil().postReq】ex={}", ex);
-                }
+                    mapData.put("details", details);
+                    JSONObject jsonObject = new JSONObject(mapData);
+                    log.info("【WmsWsTasks.synOrders】jsonObject=:{}", jsonObject);
+                    ResponseEntity responseEntity = null;
+                    JSONObject response = null;
+                    try {
+                        response = new IpassUtil().postReq(ipassUri, jsonObject.toString(), AppKey, AK, SK, baseURL);
+                        log.info("【synOrders.IpassUtil().postReq】response={}", response);
+                    } catch (Exception ex) {
+                        log.info("【synOrders.IpassUtil().postReq】ex={}", ex);
+                    }
 
-                responseEntity = JSON.parseObject(response.toString(), ResponseEntity.class);
-                log.info("【synOrders.IpassUtil().postReq】responseEntity=:{}", responseEntity);
-                //推送成功后需要更新推送状态 status
-                if ("true".equals(responseEntity.getSuccess())) {
-                    log.info("responseEntity.getSuccess()=true推送成功");
-                    service.updateSap2WmsStatus(ResultEnum.SUCCESS.getCode().toString(), e.getITEM_SAPNUMBER());
-                    service.updateStatus(ResultEnum.SUCCESS.getCode().toString(), e.getORDER_ID());
+                    responseEntity = JSON.parseObject(response.toString(), ResponseEntity.class);
+                    log.info("【synOrders.IpassUtil().postReq】responseEntity=:{}", responseEntity);
+                    //推送成功后需要更新推送状态 status
+                    if ("true".equals(responseEntity.getSuccess())) {
+                        log.info("responseEntity.getSuccess()=true推送成功");
+                        service.updateSap2WmsStatus(ResultEnum.SUCCESS.getCode().toString(), e.getITEM_SAPNUMBER());
+                        service.updateStatus(ResultEnum.SUCCESS.getCode().toString(), e.getORDER_ID());
 
-                }else {
-                    //推送失败操作
-                    service.updateStatus(ResultEnum.FALSE.getCode().toString(), e.getORDER_ID());
-                    service.updateSap2WmsStatus(ResultEnum.FALSE.getCode().toString(), e.getITEM_SAPNUMBER());
-                    log.info("responseEntity.getSuccess()=flase推送失败");
+                    }else {
+                        //推送失败操作
+                        service.updateStatus(ResultEnum.FALSE.getCode().toString(), e.getORDER_ID());
+                        service.updateSap2WmsStatus(ResultEnum.FALSE.getCode().toString(), e.getITEM_SAPNUMBER());
+                        log.info("responseEntity.getSuccess()=flase推送失败");
+                    }
                 }
             });
         }

@@ -18,7 +18,62 @@
     <!--查找语句-->
     <select id="getTransmission" resultMap="BaseResultMap">
         SELECT DISTINCT A.DO_NO, A.OPE_TITLE , A.OPE_TIME , A.OPE_REMARK , A.OPE_NAME , A.WAYBILL_CODE , A.STATUS
-         FROM LMT.LMT_JD_BS_TRACE_INFO A WHERE A.DO_NO=#{doNo,jdbcType=VARCHAR} ORDER BY A.OPE_TIME
+         FROM LMT.LMT_JD_BS_TRACE_INFO A WHERE A.DO_NO=#{doNo,jdbcType=VARCHAR}
+         ORDER BY A.OPE_TIME
     </select>
 
+    <insert id="insertLMTJdBsTraceInfo"  parameterType="com.infinitus.bms_oa.oms.pojo.WordTrack">
+       INSERT INTO LMT.LMT_JD_BS_TRACE_INFO (DO_NO, OPE_TITLE , OPE_TIME , OPE_REMARK , OPE_NAME , WAYBILL_CODE ,STATUS,CREATION_TIME)
+       VALUES (#{doNo,jdbcType=VARCHAR},#{opeTitle,jdbcType=VARCHAR},#{opeTime,jdbcType=VARCHAR},#{opeRemark,jdbcType=VARCHAR},
+       #{opeName,jdbcType=VARCHAR},#{waybillCode,jdbcType=VARCHAR},#{status,jdbcType=VARCHAR},#{creationTime,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="selectLmtJdBsTraceInfoBySomeThing"  parameterType="java.lang.String" resultType="com.infinitus.bms_oa.oms.pojo.WordTrack" >
+        SELECT A.TRACE_ID as t_id,A.DO_NO as doNo, A.OPE_TITLE as opeTitle, A.OPE_TIME as opeTime, A.OPE_REMARK as
+        opeRemark,
+        A.OPE_NAME
+        as opeName,A.WAYBILL_CODE as waybillCode,A.STATUS as status
+         FROM LMT.LMT_JD_BS_TRACE_INFO A WHERE 1=1
+
+        <if test="doNo != null and doNo !=''">
+            AND DO_NO = #{doNo,jdbcType=VARCHAR}
+        </if>
+        <if test="opeRemark != null and opeRemark !=''">
+            AND OPE_REMARK = #{opeRemark,jdbcType=VARCHAR}
+        </if>
+
+        <if test="opeTime != null and opeTime !=''">
+            AND OPE_TIME = #{opeTime,jdbcType=VARCHAR}
+        </if>
+
+        <if test="opeTitle != null and opeTitle !=''">
+            AND OPE_TITLE = #{opeTitle,jdbcType=VARCHAR}
+        </if>
+
+        <if test="opeName != null and express_code !=''">
+            AND OPE_NAME = #{opeName,jdbcType=VARCHAR}
+        </if>
+        AND DO_NO IS NOT NULL
+    </select>
+
+    <select id="selectLmtJdBsTraceInfoBySome" parameterType="java.lang.String" resultType="com.infinitus.bms_oa.oms.pojo.WordTrack">
+        SELECT  A.TRACE_ID as t_id,A.DO_NO as doNo, A.OPE_TITLE as opeTitle, A.OPE_TIME as opeTime, A.OPE_REMARK as
+        opeRemark,
+        A.OPE_NAME
+        as opeName,A.WAYBILL_CODE as waybillCode,A.STATUS as status
+        FROM LMT.LMT_JD_BS_TRACE_INFO A WHERE DO_NO = #{doNo,jdbcType=VARCHAR}
+        <if test="opeRemark != null and opeRemark !=''">
+            AND OPE_REMARK = #{opeRemark,jdbcType=VARCHAR}
+        </if>
+
+        <if test="opeTime != null and opeTime !=''">
+            AND OPE_TIME = #{opeTime,jdbcType=VARCHAR}
+        </if>
+        AND DO_NO IS NOT NULL
+    </select>
+
+
+    <update id="updateLMTJdBsTraceInfoStatus" >
+        update LMT.LMT_JD_BS_TRACE_INFO set OPE_TITLE=#{opeTitle,jdbcType=VARCHAR}, STATUS=#{status,jdbcType=VARCHAR} where TRACE_ID=#{t_id,jdbcType=VARCHAR}
+    </update>
 </mapper>

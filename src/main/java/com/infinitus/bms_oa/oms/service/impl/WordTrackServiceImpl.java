@@ -2,6 +2,7 @@ package com.infinitus.bms_oa.oms.service.impl;
 
 import com.infinitus.bms_oa.oms.enums.StatusEnum;
 import com.infinitus.bms_oa.oms.excetion.BMSException;
+import com.infinitus.bms_oa.oms.mapper.LmtJdBsTraceInfoMapper;
 import com.infinitus.bms_oa.oms.mapper.WordTrackMapper;
 import com.infinitus.bms_oa.oms.pojo.WordTrack;
 import com.infinitus.bms_oa.oms.service.WordTrackService;
@@ -21,6 +22,9 @@ import java.util.Set;
 public class WordTrackServiceImpl implements WordTrackService {
     @Autowired
     private WordTrackMapper mapper;
+
+    @Autowired
+    private LmtJdBsTraceInfoMapper infoMapper;
 
     @Override
     public ResultEntityUtils insertWordTrackS(List<WordTrack> wordTracks) {
@@ -51,9 +55,19 @@ public class WordTrackServiceImpl implements WordTrackService {
         Set<WordTrack> trackSet = new HashSet<>(wordTracks);
 
         for (WordTrack wordTrack : trackSet) {
+            /*
+            //弃用逻辑
             WordTrack wordTrackF = mapper.selectWordTrack(wordTrack);
             if (ObjectUtils.isEmpty(wordTrackF)) {
                 a=mapper.insertWordTrack(wordTrack);
+                wordTrackList.add(wordTrack);
+            }*/
+            /*
+             * 新逻辑
+              */
+            WordTrack sth = infoMapper.selectLmtJdBsTraceInfoBySomeThing(wordTrack);
+            if (ObjectUtils.isEmpty(sth)) {
+                a = infoMapper.insertLMTJdBsTraceInfo(wordTrack);//新逻辑
                 wordTrackList.add(wordTrack);
             }
         }
@@ -74,12 +88,21 @@ public class WordTrackServiceImpl implements WordTrackService {
         List<WordTrack> wordTrackUpdate = new ArrayList<>();
         Set<WordTrack> trackSet = new HashSet<>(wordTracks);
         for (WordTrack wordTrack : trackSet) {
-            WordTrack wordTrackF = mapper.selectWordTrackBySome(wordTrack.getDoNo(), wordTrack.getOpeRemark(), wordTrack.getOpeTime());
+           /* WordTrack wordTrackF = mapper.selectWordTrackBySome(wordTrack.getDoNo(), wordTrack.getOpeRemark(), wordTrack.getOpeTime());
             if (ObjectUtils.isEmpty(wordTrackF)) {
                 a=mapper.insertWordTrack(wordTrack);
                 wordTrackInsert.add(wordTrack);
             }else{
                 a = mapper.updateWTrack(wordTrackF.getT_id(), wordTrack.getOpeTitle(), wordTrack.getStatus());
+                wordTrackUpdate.add(wordTrack);
+            }*/
+            //新逻辑
+            WordTrack wordTrackF = infoMapper.selectLmtJdBsTraceInfoBySome(wordTrack.getDoNo(), wordTrack.getOpeRemark(), wordTrack.getOpeTime());
+            if (ObjectUtils.isEmpty(wordTrackF)) {
+                a = infoMapper.insertLMTJdBsTraceInfo(wordTrack);
+                wordTrackInsert.add(wordTrack);
+            } else {
+                a = infoMapper.updateLMTJdBsTraceInfoStatus(wordTrackF.getT_id(), wordTrack.getOpeTitle(), wordTrack.getStatus());
                 wordTrackUpdate.add(wordTrack);
             }
         }

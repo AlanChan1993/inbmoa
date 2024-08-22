@@ -28,13 +28,13 @@
         <id column="KOSTL" property="KOSTL" jdbcType="VARCHAR"></id>
     </resultMap>
 
-    <!--查找语句-->
+    <!--查找语句- A=2 则说明已经被同步过 -->
     <select id="getImaWmsLogisticsOrdersList" resultMap="BaseResultMap">
         SELECT ORDER_ID,ITEM_NUMBER,ITEM_APPLYPERSON,ITEM_APPLYDEPT,ITEM_APPLYPERSON_NAME,ITEM_APPLICATIONNAME,
             ITEM_CONSIGNEEUSER ,ITEM_CONSIGNEEUSER_NAME ,ITEM_SAPNUMBER,ITEM_PROJECT,ITEM_COMPANYCF,ITEM_MOVETYPE,
             ITEM_ISCOMPENSATE,ITEM_APPLYDATE,B.BWART,B.MJAHR,B.KOSTL
         FROM IMA_WMS_LOGISTICS_ORDERS A ,SAP2WMS_DEPT_OUTCOME B
-        WHERE A.ITEM_SAPNUMBER =B.RSNUM AND  (B.STATUS='0' OR B.STATUS=''  ) AND ROWNUM  &lt;= 50
+        WHERE A.ITEM_SAPNUMBER =B.RSNUM AND  (B.STATUS='0' OR B.STATUS=''  ) AND A.STATUS !='2' AND ROWNUM  &lt;= 50
     </select>
 
     <select id="getSap2WmsDeptOutcomeList" resultType="java.lang.String" >
@@ -43,12 +43,17 @@
 
     <!--修改语句-->
     <update id="updateStatus" parameterType="com.infinitus.bms_oa.wms_ws.pojo.ImaWmsLogisticsOrders">
-        UPDATE IMA_WMS_LOGISTICS_ORDERS SET STATUS=#{status,jdbcType=VARCHAR} WHERE ORDER_ID=#{id,jdbcType=INTEGER}
+        UPDATE IMA_WMS_LOGISTICS_ORDERS SET STATUS=#{status,jdbcType=VARCHAR} WHERE ORDER_ID=#{id,jdbcType=INTEGER} AND STATUS !='2'
     </update>
 
 
     <update id="updateSap2WmsStatus" >
         UPDATE SAP2WMS_DEPT_OUTCOME SET STATUS=#{status,jdbcType=VARCHAR}
         WHERE RSNUM=#{rsnum,jdbcType=VARCHAR}  AND STATUS !='2'
+    </update>
+
+    <update id="updateSap2WmsStatus2" >
+        UPDATE SAP2WMS_DEPT_OUTCOME SET STATUS=#{status,jdbcType=VARCHAR}
+        WHERE RSNUM=#{rsnum,jdbcType=VARCHAR}
     </update>
 </mapper>

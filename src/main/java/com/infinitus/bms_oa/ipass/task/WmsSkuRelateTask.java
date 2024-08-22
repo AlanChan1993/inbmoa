@@ -55,10 +55,10 @@ public class WmsSkuRelateTask {
         //log.info("【SkuRelateTask.getSKURelation】o===:{}", o);
         if (null != o) {
             ResultBody resultBodyJSON = JSON.parseObject(o, ResultBody.class);
-            log.info("【SkuRelateTask.getSKURelation】resultBodyJSON===:{}", resultBodyJSON);
+            //log.info("【SkuRelateTask.getSKURelation】resultBodyJSON===:{}", resultBodyJSON);
             if ("S".equals(resultBodyJSON.getEX_RETURN().getTYPE()) && null != resultBodyJSON.getET_DATA()) {
                 List<Bms_ipass_sku_relation> bmsIpassSkuRelations = resultBodyJSON.getET_DATA();
-                log.info("【SkuRelateTask.getSKURelation】bmsIpassSkuRelations===:{}", bmsIpassSkuRelations.size());
+                //log.info("【SkuRelateTask.getSKURelation】bmsIpassSkuRelations===:{}", bmsIpassSkuRelations.size());
                 bmsIpassSkuRelations.stream().forEach(e->{
                     Bms_ipass_sku_relation bmsIpassSkuRelation = skuService.getBms_ipass_sku_relationBySku(e.getProductno());
                     if (null == bmsIpassSkuRelation) {
