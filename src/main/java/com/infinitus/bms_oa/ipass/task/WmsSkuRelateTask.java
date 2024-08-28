@@ -21,7 +21,7 @@ import java.util.List;
  * 4-10已上生产
 * */
 @Slf4j
-//@Component
+@Component
 public class WmsSkuRelateTask {
     @Value("${IPASS_Sku_Relation.ipaas_baseUrl}")
     private String ipaas_baseUrl;
@@ -50,15 +50,14 @@ public class WmsSkuRelateTask {
     }
 
     public void getSKURelation() throws NoSuchAlgorithmException {
-        log.info("【SkuRelateTask.getSKURelation】取数据————-------------start-----", new DateUtil().getNowDate2());
+        log.warn("【SkuRelateTask.getSKURelation】取数据————-------------start-----", new DateUtil().getNowDate2());
         String o = IpaasUtils.postRequest(ak, sk, appkey, ipaas_baseUrl, relationURL, "");
-        //log.info("【SkuRelateTask.getSKURelation】o===:{}", o);
+
         if (null != o) {
             ResultBody resultBodyJSON = JSON.parseObject(o, ResultBody.class);
             //log.info("【SkuRelateTask.getSKURelation】resultBodyJSON===:{}", resultBodyJSON);
             if ("S".equals(resultBodyJSON.getEX_RETURN().getTYPE()) && null != resultBodyJSON.getET_DATA()) {
                 List<Bms_ipass_sku_relation> bmsIpassSkuRelations = resultBodyJSON.getET_DATA();
-                //log.info("【SkuRelateTask.getSKURelation】bmsIpassSkuRelations===:{}", bmsIpassSkuRelations.size());
                 bmsIpassSkuRelations.stream().forEach(e->{
                     Bms_ipass_sku_relation bmsIpassSkuRelation = skuService.getBms_ipass_sku_relationBySku(e.getProductno());
                     if (null == bmsIpassSkuRelation) {

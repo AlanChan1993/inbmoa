@@ -47,8 +47,22 @@ public class ImaWmsLogisticsOrdersController {
         return responseEntity;
     }
 
+    /*
+    * 重置status状态进行重推数据
+    * */
     @RequestMapping("updateItemByNum")
-    public String updateItemByNum(String num){
-        return "";
+    @ResponseBody
+    public ResponseEntity updateItemByNum(String number){
+        return service.updateItemByNum(number);
     }
+
+    /**
+    * 根据发货单号查IMA单号
+    * */
+    @ResponseBody
+    @RequestMapping("getOrderByNum")
+    public ResponseEntity getOrderByNum(String number) {
+        return service.getOrderByNum(number);
+    }
+
 }

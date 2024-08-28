@@ -13,4 +13,14 @@ public interface ImaWmsLogisticsOrdersMapper {
 
     boolean updateSap2WmsStatus(String status,String rsnum);
 
+    boolean updateSap2WmsStatus2(String status,String rsnum);
+
+    boolean updateOrderStatus(String status,String sapNum);
+
+    Integer selectSAP2WMSSumByRSNUM(String rsnum);
+
+    Integer selectORDERSSumBySapNum(String sapNum);
+
+    List<ImaWmsLogisticsOrders> getOrderByNum(String number);
+
 }

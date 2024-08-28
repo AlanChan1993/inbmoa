@@ -29,7 +29,7 @@ import static java.time.ZoneOffset.UTC;
 import static org.apache.commons.codec.binary.Base64.encodeBase64String;
 
 @Slf4j
-//@Component
+@Component
 public class WmsStoreTasks {
 
     @Value("${wms.secret.value}")
@@ -78,7 +78,7 @@ public class WmsStoreTasks {
      * */
     @Scheduled(fixedRate = 1000 * 2 * 30)
     public void taskWms() throws UnsupportedEncodingException {
-        log.info("taskWms当前时间:{}",new DateUtil().getNowDate2());
+        log.warn("taskWms当前时间:{}",new DateUtil().getNowDate2());
     }
 
     /**
@@ -89,7 +89,7 @@ public class WmsStoreTasks {
     @Scheduled(cron="0 0 1 * * ?")
     //@Scheduled(fixedRate = 1000 * 30 * 30)//用于生产拿数据后停止
     public void clearSku_Com()  {
-        log.info("clearSku_Com:{}",new DateUtil().getNowDate2());
+        log.warn("clearSku_Com:{}",new DateUtil().getNowDate2());
         store_skus_service.deleteW_STORE_SKUS();//批量更新前先清理掉之前的数据
         commoditiesService.deleteW_STORE_COMMODITIES();//批量更新前先清理掉之前的数据
     }
@@ -102,7 +102,7 @@ public class WmsStoreTasks {
     @Scheduled(cron="5 2 1 * * ?")
     //@Scheduled(fixedRate = 1000 * 30 * 30)//用于生产拿数据后停止
     public void getStoreDetailTask() throws UnsupportedEncodingException {
-        log.info("getStoreDetailTask当前同步时间:{}",new DateUtil().getNowDate2());
+        log.warn("getStoreDetailTask当前同步时间:{}",new DateUtil().getNowDate2());
         getSkus();
     }
 
@@ -114,7 +114,7 @@ public class WmsStoreTasks {
     @Scheduled(cron="8 5 1 * * ?")
     //@Scheduled(fixedRate = 1000 * 30 * 30)//用于生产拿数据后停止
     public void getStoreDetailTask2() throws UnsupportedEncodingException {
-        log.info("getStoreDetailTask2当前同步时间:{}",new DateUtil().getNowDate2());
+        log.warn("getStoreDetailTask2当前同步时间:{}",new DateUtil().getNowDate2());
         getCommodities();
     }
 
@@ -175,7 +175,7 @@ public class WmsStoreTasks {
             if (skusList2.size() > 0) {
                 store_skus_service.insertSkusList(skusList2);
                 store_skus_service.insertSkusHistoryList(skusList2);
-                log.info("skusList插入成功=:{}", skusList2);
+//                log.info("skusList插入成功=:{}", skusList2);
             }
         }
     }
@@ -216,7 +216,7 @@ public class WmsStoreTasks {
         if (pagePojo == null) {
             return ;
         }
-        log.info("【WmsStoreTasks.getCommodities】pagePojo=:{}",pagePojo.getTotalPages());
+//        log.info("【WmsStoreTasks.getCommodities】pagePojo=:{}",pagePojo.getTotalPages());
         for (int i = 0; i <= pagePojo.getTotalPages(); i++) {
             //原url调用，下架
            /* String urlAll = url + listCommodities + "?nos=&page=" + i + "&size=200";
@@ -228,7 +228,7 @@ public class WmsStoreTasks {
             JSONObject jsonResultII = JSONObject.parseObject(oi.toString());
             Boolean a = false;
             if (a==jsonResultII.get("success")) {
-                log.info("【WmsStoreTasks.getCommodities】jsonResult2=:{}", jsonResultII);
+//                log.info("【WmsStoreTasks.getCommodities】jsonResult2=:{}", jsonResultII);
                 continue;
             }
 
@@ -236,7 +236,7 @@ public class WmsStoreTasks {
             if (commoditiesList2.size() > 0) {
                 commoditiesService.insertW_STORE_COMMODITIESList(commoditiesList2);
                 commoditiesService.insertW_STORE_COMMODITIESList_History(commoditiesList2);
-                log.info("commoditiesList" + i + "插入成功=:{}", commoditiesList2);
+//                log.info("commoditiesList" + i + "插入成功=:{}", commoditiesList2);
             }
         }
     }

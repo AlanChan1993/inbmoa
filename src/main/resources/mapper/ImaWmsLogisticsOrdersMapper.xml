@@ -28,6 +28,8 @@
         <id column="KOSTL" property="KOSTL" jdbcType="VARCHAR"></id>
     </resultMap>
 
+
+
     <!--查找语句- A=2 则说明已经被同步过 -->
     <select id="getImaWmsLogisticsOrdersList" resultMap="BaseResultMap">
         SELECT ORDER_ID,ITEM_NUMBER,ITEM_APPLYPERSON,ITEM_APPLYDEPT,ITEM_APPLYPERSON_NAME,ITEM_APPLICATIONNAME,
@@ -56,4 +58,27 @@
         UPDATE SAP2WMS_DEPT_OUTCOME SET STATUS=#{status,jdbcType=VARCHAR}
         WHERE RSNUM=#{rsnum,jdbcType=VARCHAR}
     </update>
+
+    <update id="updateOrderStatus" >
+        UPDATE IMA_WMS_LOGISTICS_ORDERS SET STATUS=#{status,jdbcType=VARCHAR}
+        WHERE ITEM_SAPNUMBER=#{sapNum,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectSAP2WMSSumByRSNUM" resultType="java.lang.Integer" >
+        SELECT count(*) FROM SAP2WMS_DEPT_OUTCOME WHERE RSNUM=#{rsnum,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectORDERSSumBySapNum" resultType="java.lang.Integer" >
+        SELECT count(*) FROM IMA_WMS_LOGISTICS_ORDERS WHERE ITEM_SAPNUMBER=#{sapNum,jdbcType=VARCHAR}
+    </select>
+
+    <!--查找语句- A=2 则说明已经被同步过 -->
+    <select id="getOrderByNum" resultMap="BaseResultMap">
+        SELECT ORDER_ID,ITEM_NUMBER,ITEM_APPLYPERSON,ITEM_APPLYDEPT,ITEM_APPLYPERSON_NAME,ITEM_APPLICATIONNAME,
+            ITEM_CONSIGNEEUSER ,ITEM_CONSIGNEEUSER_NAME ,ITEM_SAPNUMBER,ITEM_PROJECT,ITEM_COMPANYCF,ITEM_MOVETYPE,
+            ITEM_ISCOMPENSATE,ITEM_APPLYDATE,SYN_DATE,B.BWART,B.MJAHR,B.KOSTL
+        FROM IMA_WMS_LOGISTICS_ORDERS A ,SAP2WMS_DEPT_OUTCOME B
+        WHERE A.ITEM_SAPNUMBER =B.RSNUM AND A.ITEM_SAPNUMBER =#{number,jdbcType=VARCHAR}
+    </select>
+
 </mapper>

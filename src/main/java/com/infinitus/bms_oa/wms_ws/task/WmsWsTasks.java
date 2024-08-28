@@ -26,7 +26,7 @@ import java.util.*;
  * 生产暂时未建表 未上线 2024-06-04
  * */
 @Slf4j
-//@Component
+@Component
 public class WmsWsTasks {
     @Value("${WS.IPASS.baseURL}")
     private String baseURL;
@@ -60,7 +60,7 @@ public class WmsWsTasks {
      * */
     @Scheduled(fixedRate = 1000 * 5 * 60)
     public void taskWmsWS() throws UnsupportedEncodingException {
-        log.info("taskWmsWS当前时间:{}",new DateUtil().getNowDate2());
+        log.warn("taskWmsWS当前时间:{}",new DateUtil().getNowDate2());
         synOrders();
     }
 
@@ -130,21 +130,21 @@ public class WmsWsTasks {
                     });
                     mapData.put("details", details);
                     JSONObject jsonObject = new JSONObject(mapData);
-                    log.info("【WmsWsTasks.synOrders】jsonObject=:{}", jsonObject);
+                    log.warn("【WmsWsTasks.synOrders】jsonObject=:{}", jsonObject);
                     ResponseEntity responseEntity = null;
                     JSONObject response = null;
                     try {
                         response = new IpassUtil().postReq(ipassUri, jsonObject.toString(), AppKey, AK, SK, baseURL);
-                        log.info("【synOrders.IpassUtil().postReq】response={}", response);
+//                        log.info("【synOrders.IpassUtil().postReq】response={}", response);
                     } catch (Exception ex) {
-                        log.info("【synOrders.IpassUtil().postReq】ex={}", ex);
+                        log.warn("【synOrders.IpassUtil().postReq】ex={}", ex);
                     }
 
                     responseEntity = JSON.parseObject(response.toString(), ResponseEntity.class);
-                    log.info("【synOrders.IpassUtil().postReq】responseEntity=:{}", responseEntity);
+                    log.warn("【synOrders.IpassUtil().postReq】responseEntity=:{}", responseEntity);
                     //推送成功后需要更新推送状态 status
                     if ("true".equals(responseEntity.getSuccess())) {
-                        log.info("responseEntity.getSuccess()=true推送成功");
+                        log.warn("responseEntity.getSuccess()=true推送成功");
                         service.updateSap2WmsStatus(ResultEnum.SUCCESS.getCode().toString(), e.getITEM_SAPNUMBER());
                         service.updateStatus(ResultEnum.SUCCESS.getCode().toString(), e.getORDER_ID());
 
@@ -152,7 +152,7 @@ public class WmsWsTasks {
                         //推送失败操作
                         service.updateStatus(ResultEnum.FALSE.getCode().toString(), e.getORDER_ID());
                         service.updateSap2WmsStatus(ResultEnum.FALSE.getCode().toString(), e.getITEM_SAPNUMBER());
-                        log.info("responseEntity.getSuccess()=flase推送失败");
+                        log.warn("responseEntity.getSuccess()=flase推送失败");
                     }
                 }
             });
