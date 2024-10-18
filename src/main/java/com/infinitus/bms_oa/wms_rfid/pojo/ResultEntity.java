@@ -1,4 +1,4 @@
-package com.infinitus.bms_oa.rfid.pojo;
+package com.infinitus.bms_oa.wms_rfid.pojo;
 
 import lombok.Data;
 

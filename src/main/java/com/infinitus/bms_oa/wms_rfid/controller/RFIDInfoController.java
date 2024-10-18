@@ -1,8 +1,8 @@
-package com.infinitus.bms_oa.rfid.controller;
+package com.infinitus.bms_oa.wms_rfid.controller;
 
-import com.infinitus.bms_oa.rfid.pojo.RFIDInfo;
-import com.infinitus.bms_oa.rfid.pojo.ResultEntity;
-import com.infinitus.bms_oa.rfid.service.RFIDInfoService;
+import com.infinitus.bms_oa.wms_rfid.pojo.RFIDInfo;
+import com.infinitus.bms_oa.wms_rfid.pojo.ResultEntity;
+import com.infinitus.bms_oa.wms_rfid.service.RFIDInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;

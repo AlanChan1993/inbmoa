@@ -1,8 +1,6 @@
-package com.infinitus.bms_oa.rfid.mapper;
+package com.infinitus.bms_oa.wms_rfid.mapper;
 
-import com.infinitus.bms_oa.rfid.pojo.RFIDInfo;
-import org.apache.ibatis.annotations.Mapper;
-import org.mybatis.spring.annotation.MapperScan;
+import com.infinitus.bms_oa.wms_rfid.pojo.RFIDInfo;
 
 import java.util.List;
 

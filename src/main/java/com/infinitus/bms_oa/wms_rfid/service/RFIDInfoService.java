@@ -1,6 +1,6 @@
-package com.infinitus.bms_oa.rfid.service;
+package com.infinitus.bms_oa.wms_rfid.service;
 
-import com.infinitus.bms_oa.rfid.pojo.RFIDInfo;
+import com.infinitus.bms_oa.wms_rfid.pojo.RFIDInfo;
 
 import java.util.List;
 
