@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--上面2行的是约束依赖，固定照抄就好-->
+<!--下面的才是要自己编写的地方-->
+<!--写mapper的配置文件第一步就是要写<mapper></mapper>标签-->
+<!--<mapper></mapper>标签里包含着各个CURD操作的SQL语句-->
+<mapper namespace="com.infinitus.bms_oa.wms_rfid.mapper.Wms2hd100_OrdersMapper">
+    <!--定义一个名为BaseResultMap的返回类型-->
+    <resultMap id="BaseResultMap" type="com.infinitus.bms_oa.wms_rfid.pojo.Wms2hd100_Orders">
+        <result column="wavekey" property="wavekey" jdbcType="VARCHAR"></result>
+        <result column="orderno" property="orderno" jdbcType="VARCHAR"></result>
+        <result column="status" property="status" jdbcType="VARCHAR"></result>
+        <result column="totalaMount" property="totalaMount" jdbcType="INTEGER"></result>
+        <result column="dId" property="dId" jdbcType="VARCHAR"></result>
+        <result column="dName" property="dName" jdbcType="VARCHAR"></result>
+        <result column="addr" property="addr" jdbcType="VARCHAR"></result>
+        <result column="rdcId" property="rdcId" jdbcType="VARCHAR"></result>
+        <result column="OPSTATUS" property="OPSTATUS" jdbcType="VARCHAR"></result>
+        <result column="addDate" property="addDate" jdbcType="VARCHAR"></result>
+        <result column="serialKey" property="serialKey" jdbcType="VARCHAR"></result>
+        <result column="shipFlag" property="shipFlag" jdbcType="VARCHAR"></result>
+        <result column="orderType" property="orderType" jdbcType="VARCHAR"></result>
+        <result column="shipTiem" property="shipTiem" jdbcType="VARCHAR"></result>
+        <result column="UUID" property="UUID" jdbcType="VARCHAR"></result>
+
+    </resultMap>
+
+    <!--查找语句-->
+    <!--resultMap表示函数返回的类型-->
+    <select id="getWms2HD100Orders" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT WAVEKEY,ORDERNO,STATUS,TOTALAMOUNT,DID,DNAME,ADDR,RDCID,OPSTATUS,ADDDATE,
+        SERIALKEY,SHIPFLAG,ORDERTYPE,SHIPTIEM,UUID  FROM WMWHSE1.WMS2HD100_ORDERS
+        WHERE 1=1
+        <if test="rdcId!=null and  rdcId!='' ">
+         AND   RDCID=#{rdcId,jdbcType=VARCHAR}
+        </if>
+
+        <if test="startTime!=null and endTime!=null and startTime!='' and endTime!=''">
+        AND ADDDATE BETWEEN TO_DATE(#{startTime,jdbcType=VARCHAR},'yyyy-MM-dd')
+                    AND TO_DATE(#{endTime,jdbcType=VARCHAR},'yyyy-MM-dd')
+        </if>
+    </select>
+
+</mapper>
