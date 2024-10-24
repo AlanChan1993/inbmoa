@@ -66,6 +66,7 @@ public class RFIDInfoController {
      * */
     @RequestMapping("get2HD100Orders")
     public Result_2hd100_Orders getWms2HD100Orders(Wms2hd100_OrdersDTO ordersDTO){
+        log.info("【RFIDInfoController.getWms2HD100Orders】ordersDTO=:{}", ordersDTO);
         Result_2hd100_Orders result = new Result_2hd100_Orders();
         try {
             List<Wms2hd100_Orders> orders = ordersService.getWms2HD100Orders(ordersDTO);
