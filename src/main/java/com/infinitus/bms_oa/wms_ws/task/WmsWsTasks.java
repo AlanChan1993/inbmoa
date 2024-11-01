@@ -56,7 +56,7 @@ public class WmsWsTasks {
     /**
      * 暂定5分钟执行一次
      * */
-    @Scheduled(fixedRate = 1000 * 5 * 60)
+    @Scheduled(fixedRate = 1000 * 1 * 60)
     public void taskWmsWS() throws UnsupportedEncodingException {
         log.warn("taskWmsWS当前时间:{}",new DateUtil().getNowDate2());
         synOrders();
@@ -66,8 +66,8 @@ public class WmsWsTasks {
     public void synOrders(){
         List<ImaWmsLogisticsOrders> ordersList = service.getImaWmsLogisticsOrdersList();
         Set<ImaWmsLogisticsOrders> orderSets = new HashSet<>(ordersList) ;
+        log.warn("【WmsWsTasks.synOrders()】,orderSets.size()={}", orderSets.size());
         if (orderSets.size() > 0) {
-            log.info("【WmsWsTasks.synOrders()】,orderSets.size()={}", orderSets.size());
             orderSets.stream().forEach(e->{
                 //表单数据
                 Map<String, Object> mapData = new HashMap<>();
@@ -112,12 +112,19 @@ public class WmsWsTasks {
                 mapData.put("costCenter", e.getKOSTL());
                 mapData.put("orderNo", e.getITEM_NUMBER());
                 mapData.put("compensation", e.getITEM_ISCOMPENSATE());
+
+                log.warn("【WmsWsTasks.synOrders()】,mapData={}", mapData);
                 //明细
                 List<ImaWmsOrdersDetail> detailList = detailService.getImaWmsOrdersDetails(e.getITEM_NUMBER());
                 Set<ImaWmsOrdersDetail> detailSet = new HashSet<>(detailList) ;
                 List<OrderDetailsDTO> details =new ArrayList<>();
+
+                log.warn("【WmsWsTasks.synOrders()】,detailList={}", detailList);
+                log.warn("【WmsWsTasks.synOrders()】,detailSet={}", detailSet);
+
                 if(detailSet.size()>0){
                     detailSet.stream().forEach(d->{
+                        log.warn("【WmsWsTasks.synOrders().detailSet.d】,d={}", d);
                         OrderDetailsDTO detailsDTO = new OrderDetailsDTO();
                         detailsDTO.setProdCode(d.getITEM_PRODUCTCODE());
                         detailsDTO.setMaterialType(d.getITEM_CLASS());

@@ -14,5 +14,6 @@ public class ImaWmsOrdersDetail {
     private int ITEM_QUANTITY;
     private String ITEM_BATCH;
     private String ITEM_CLASS;
+    private String STATUS;
     private String MJAHR;
 }
