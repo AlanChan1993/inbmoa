@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--上面2行的是约束依赖，固定照抄就好-->
+<!--下面的才是要自己编写的地方-->
+<!--写mapper的配置文件第一步就是要写<mapper></mapper>标签-->
+<!--<mapper></mapper>标签里包含着各个CURD操作的SQL语句-->
+<mapper namespace="com.infinitus.bms_oa.oms.mapper.SKUMapper">
+    <!--定义一个名为BaseResultMap的返回类型-->
+    <resultMap id="BaseResultMap" type="com.infinitus.bms_oa.oms.pojo.SKU">
+        <result column="SKUSUBCLS" property="skuSubCls" jdbcType="VARCHAR"></result>
+        <result column="SKUCLS" property="skuCls" jdbcType="VARCHAR"></result>
+        <result column="ISMANAGERLOT" property="isManagerLot" jdbcType="VARCHAR"></result>
+        <result column="CARTONIZEUOM" property="carTonizeuom" jdbcType="INTEGER"></result>
+        <result column="C_ISEXPRESSBAG" property="c_isexpressbag" jdbcType="VARCHAR"></result>
+        <result column="C_HASINVERT" property="c_hasinvert" jdbcType="VARCHAR"></result>
+        <result column="BARCODEFLG" property="barcodeflg" jdbcType="VARCHAR"></result>
+        <result column="STDCUBE" property="stdcube" jdbcType="DOUBLE"></result>
+        <result column="C_MINBOXTYPE_B" property="c_minboxtype_b" jdbcType="VARCHAR"></result>
+        <result column="C_MINBOXTYPE_C" property="c_minboxtype_c" jdbcType="VARCHAR"></result>
+        <result column="C_STDCUBE_C" property="c_stdcube_c" jdbcType="DOUBLE"></result>
+        <result column="C_STDLENGTH_B" property="c_stdlength_b" jdbcType="DOUBLE"></result>
+        <result column="C_STDWIDTH_B" property="c_stdwidth_b" jdbcType="DOUBLE"></result>
+        <result column="C_STDHEIGHT_B" property="c_stdheight_b" jdbcType="DOUBLE"></result>
+        <result column="C_STDLENGTH_C" property="c_stdlength_c" jdbcType="DOUBLE"></result>
+        <result column="C_STDWIDTH_C" property="c_stdwidth_c" jdbcType="DOUBLE"></result>
+        <result column="C_STDHEIGHT_C" property="c_stdheight_c" jdbcType="DOUBLE"></result>
+        <result column="SKU" property="sku" jdbcType="VARCHAR"></result>
+        <result column="DESCR" property="descr" jdbcType="VARCHAR"></result>
+    </resultMap>
+
+    <!--查找语句-->
+    <!--resultMap表示函数返回的类型-->
+    <select id="getSku" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT SKUSUBCLS,SKUCLS,ISMANAGERLOT,CARTONIZEUOM,C_ISEXPRESSBAG,C_HASINVERT,BARCODEFLG,STDCUBE,C_MINBOXTYPE_B,
+        C_MINBOXTYPE_C ,C_STDCUBE_C,C_STDLENGTH_B,C_STDWIDTH_B, C_STDHEIGHT_B,C_STDLENGTH_C,C_STDWIDTH_C,C_STDHEIGHT_C,SKU,DESCR
+        FROM WMWHSE1.SKU
+        WHERE STORERKEY='INF' AND (SKU LIKE '1%' OR SKU LIKE '2%' )
+        <if test="sku!=null and  sku!='' ">
+         AND   SKU=#{sku,jdbcType=VARCHAR}
+        </if>
+        ORDER BY SKU
+
+    </select>
+
+</mapper>

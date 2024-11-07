@@ -137,7 +137,19 @@
             <artifactId>jsch</artifactId>
             <version>0.1.46</version>
         </dependency>-->
-    </dependencies>
+
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>5.2.1</version>
+        </dependency>
+        <!-- mybatis分页-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.12</version>
+        </dependency>
+    </dependencies>0.
 
     <build>
         <plugins>
