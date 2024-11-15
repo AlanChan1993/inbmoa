@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.infinitus</groupId>
-    <artifactId>bms_oa</artifactId>
+    <artifactId>bms_all</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>bms_oa</name>
+    <name>bms_all</name>
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>1.8</java.version>
@@ -149,7 +149,7 @@
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.2.12</version>
         </dependency>
-    </dependencies>0.
+    </dependencies>
 
     <build>
         <plugins>

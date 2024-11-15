@@ -4,6 +4,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.infinitus.bms_oa.oms.pojo.DTO.SkuDTO;
 import com.infinitus.bms_oa.oms.pojo.SKU;
+import com.infinitus.bms_oa.oms.pojo.VO.SKUVO;
+import com.infinitus.bms_oa.oms.pojo.converter.SkuConvertSkuVO;
 import com.infinitus.bms_oa.oms.service.SKUService;
 import com.infinitus.bms_oa.oms.utils.PageResult;
 import com.infinitus.bms_oa.oms.utils.ResultEntity;
@@ -32,8 +34,9 @@ public class SkuController {
         try {
             PageHelper.startPage(dto.getPageIndex(), dto.getPageSize());
             List<SKU> list = service.getSku(dto);
+            List<SKUVO> skuvoList = new SkuConvertSkuVO().convertList(list);
 
-            PageInfo<SKU> pageInfo = new PageInfo<>(list);
+            PageInfo<SKUVO> pageInfo = new PageInfo<>(skuvoList);
             pageResult.setPageSize(pageInfo.getPageSize());//每页数目
             pageResult.setTotalNum(pageInfo.getTotal());//总数目
             pageResult.setTotalPage(pageInfo.getPages());//总页数
