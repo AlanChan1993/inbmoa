@@ -36,11 +36,16 @@ public class SkuController {
             List<SKU> list = service.getSku(dto);
             List<SKUVO> skuvoList = new SkuConvertSkuVO().convertList(list);
 
+            int listSum = service.getSkuSum(dto.getSku());
+            double listSumDouble = listSum;
+            double totalpage=listSumDouble / dto.getPageSize();
+            int totalpageP = (int) Math.ceil(totalpage);
+            if (totalpageP<=0) totalpageP = 1;
             PageInfo<SKUVO> pageInfo = new PageInfo<>(skuvoList);
-            pageResult.setPageSize(pageInfo.getPageSize());//每页数目
-            pageResult.setTotalNum(pageInfo.getTotal());//总数目
-            pageResult.setTotalPage(pageInfo.getPages());//总页数
-            pageResult.setCurrentPage(pageInfo.getPageNum());//当前页
+            pageResult.setPageSize(dto.getPageSize());//每页数目
+            pageResult.setTotalNum(listSum);//总数目
+            pageResult.setTotalPage(totalpageP);//总页数
+            pageResult.setCurrentPage(dto.getPageIndex());//当前页
             pageResult.setData(pageInfo.getList());//响应业务数据
 
             res.setSuccess("true");

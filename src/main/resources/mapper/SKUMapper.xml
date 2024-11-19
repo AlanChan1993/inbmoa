@@ -36,10 +36,22 @@
         FROM WMWHSE1.SKU
         WHERE STORERKEY='INF' AND (SKU LIKE '1%' OR SKU LIKE '2%' )
         <if test="sku!=null and  sku!='' ">
-         AND   SKU=#{sku,jdbcType=VARCHAR}
+            AND   SKU=#{sku,jdbcType=VARCHAR}
         </if>
         ORDER BY SKU
 
     </select>
 
+    <!--查找总数语句-->
+    <!--resultMap表示函数返回的类型-->
+    <select id="getSkuSum" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM WMWHSE1.SKU
+        WHERE STORERKEY='INF' AND (SKU LIKE '1%' OR SKU LIKE '2%' )
+        <if test="sku!=null and  sku!='' ">
+            AND   SKU=#{sku,jdbcType=VARCHAR}
+        </if>
+        ORDER BY SKU
+
+    </select>
 </mapper>

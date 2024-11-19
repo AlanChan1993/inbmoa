@@ -23,4 +23,10 @@ public class SKUServiceImpl implements SKUService {
         return  list;
 
     }
+
+    @Override
+    public int getSkuSum(String sku) {
+        return mapper.getSkuSum(sku);
+    }
+
 }

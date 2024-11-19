@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface SKUService {
     List<SKU>  getSku(SkuDTO dto);
+    int getSkuSum(String sku);
 }

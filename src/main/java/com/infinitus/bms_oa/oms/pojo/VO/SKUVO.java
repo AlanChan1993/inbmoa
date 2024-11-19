@@ -6,7 +6,7 @@ import lombok.Data;
 public class SKUVO {
     private String skusubCls;
     private String skuCls;
-    private String isManagerLot;
+    private String isManageLot;
     private String carToniZeuom;
     private String isExpressBag;
     private String isHasInvert;

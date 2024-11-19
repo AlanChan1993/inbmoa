@@ -17,7 +17,7 @@ public class SkuConvertSkuVO {
         if (StringUtils.isBlank(IsManagerLot)){
             IsManagerLot = "0";
         }else{ IsManagerLot ="1";}
-        skuvo.setIsManagerLot(IsManagerLot);
+        skuvo.setIsManageLot(IsManagerLot);
 
         String CarTonizeuom=sku.getCarTonizeuom();
         if (StringUtils.isBlank(CarTonizeuom)){

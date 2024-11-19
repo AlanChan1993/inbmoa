@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface SKUMapper {
     List<SKU> getSku( String sku);
-
+    int getSkuSum(String sku);
 }
