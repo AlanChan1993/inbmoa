@@ -8,10 +8,7 @@ import com.infinitus.bms_oa.oms.pojo.VO.SKUVO;
 import com.infinitus.bms_oa.oms.pojo.converter.SkuConvertSkuVO;
 import com.infinitus.bms_oa.oms.service.SKUService;
 import com.infinitus.bms_oa.oms.utils.PageResult;
-import com.infinitus.bms_oa.oms.utils.ResultEntity;
-import com.infinitus.bms_oa.oms.utils.ResultOMS;
 import com.infinitus.bms_oa.oms.utils.SKUResult;
-import com.infinitus.bms_oa.pojo.VO.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +35,7 @@ public class SkuController {
 
             int listSum = service.getSkuSum(dto.getSku());
             double listSumDouble = listSum;
-            double totalpage=listSumDouble / dto.getPageSize();
+            double totalpage = listSumDouble / dto.getPageSize();
             int totalpageP = (int) Math.ceil(totalpage);
             if (totalpageP<=0) totalpageP = 1;
             PageInfo<SKUVO> pageInfo = new PageInfo<>(skuvoList);
